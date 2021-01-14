@@ -35,6 +35,11 @@ class Image extends React.Component {
     return `https://farm${dto.farm}.staticflickr.com/${dto.server}/${dto.id}_${dto.secret}.jpg`;
   }
 
+  deleteImage() {
+    const { id } = this.props.dto;
+    this.props.handleDelete(id);
+  }
+
   render() {
     return (
       <div
@@ -46,8 +51,8 @@ class Image extends React.Component {
         }}
         >
         <div>
-          <FontAwesome className="image-icon" name="sync-alt" title="rotate"/>
-          <FontAwesome className="image-icon" name="trash-alt" title="delete"/>
+          <FontAwesome className="image-icon" name="sync-alt" title="rotate" />
+          <FontAwesome className="image-icon" name="trash-alt" title="delete" onClick={() => this.deleteImage()}/>
           <FontAwesome className="image-icon" name="expand" title="expand"/>
         </div>
       </div>
