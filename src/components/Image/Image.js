@@ -40,6 +40,13 @@ class Image extends React.Component {
     this.props.handleDelete(id);
   }
 
+  expandImage() {
+    const {size} = this.state;
+    const expandedSize= 60 + size;
+    this.setState ({
+      size: expandedSize
+    })
+  }
   render() {
     return (
       <div
@@ -51,9 +58,9 @@ class Image extends React.Component {
         }}
         >
         <div>
-          <FontAwesome className="image-icon" name="sync-alt" title="rotate" />
+          <FontAwesome className="image-icon" name="sync-alt" title="rotate"/>
           <FontAwesome className="image-icon" name="trash-alt" title="delete" onClick={() => this.deleteImage()}/>
-          <FontAwesome className="image-icon" name="expand" title="expand"/>
+          <FontAwesome className="image-icon" name="expand" title="expand" onClick={() => this.expandImage()}/>
         </div>
       </div>
     );
