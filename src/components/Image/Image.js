@@ -13,7 +13,8 @@ class Image extends React.Component {
     super(props);
     this.calcImageSize = this.calcImageSize.bind(this);
     this.state = {
-      size: 200
+      size: 200,
+      rotation: 0
     };
   }
 
@@ -41,10 +42,16 @@ class Image extends React.Component {
   }
 
   expandImage() {
-    const {size} = this.state;
-    const expandedSize= 60 + size;
+    const expandedSize = 60 + this.state.size;
     this.setState ({
       size: expandedSize
+    })
+  }
+
+  rotateImage() {
+    let newRotation = 90 + this.state.rotation;
+    this.setState ({
+      rotation: newRotation
     })
   }
   render() {
@@ -54,11 +61,12 @@ class Image extends React.Component {
         style={{
           backgroundImage: `url(${this.urlFromDto(this.props.dto)})`,
           width: this.state.size + 'px',
-          height: this.state.size + 'px'
+          height: this.state.size + 'px',
+          transform: `rotate(${this.state.rotation}deg)`
         }}
         >
         <div>
-          <FontAwesome className="image-icon" name="sync-alt" title="rotate"/>
+          <FontAwesome className="image-icon" name="sync-alt" title="rotate" onClick={() => this.rotateImage()}/>
           <FontAwesome className="image-icon" name="trash-alt" title="delete" onClick={() => this.deleteImage()}/>
           <FontAwesome className="image-icon" name="expand" title="expand" onClick={() => this.expandImage()}/>
         </div>
