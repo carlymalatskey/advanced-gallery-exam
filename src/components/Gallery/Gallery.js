@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Image from '../Image';
 import './Gallery.scss';
+import { BottomScrollListener } from "react-bottom-scroll-listener";
 
 class Gallery extends React.Component {
   static propTypes = {
