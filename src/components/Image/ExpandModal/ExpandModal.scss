@@ -1,5 +1,25 @@
 .expanded-img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 80%;
+    max-height: 80%;
+    display: block;
+    margin: auto;
+    margin-bottom: 5px;
 }
 
+.close-button {
+    border-radius: 8px;
+    border: none;
+}
+
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 700ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open{
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close{
+    opacity: 0;
+}
