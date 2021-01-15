@@ -23,9 +23,7 @@ class ExpandModal extends React.Component {
     render() {
         return (
             <Modal isOpen={this.props.showModal} style={customModalStyle}>
-                {/* <div> */}
-                    <img src={this.props.image} className="expanded-img"/>
-                {/* </div> */}
+                <img src={this.props.image} className="expanded-img"/>
                <button onClick={() => this.props.closeModal()} className={"close-button"}>Close</button>
             </Modal>
         )
