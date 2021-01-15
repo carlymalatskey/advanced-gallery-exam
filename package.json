@@ -13,8 +13,7 @@
   "repository": "",
   "keywords": [],
   "author": "Your name here",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "axios": "^0.17.1",
     "core-js": "^2.0.0",
@@ -25,7 +24,8 @@
     "react-fontawesome": "^1.6.1",
     "react-infinite-scroller": "^1.2.4",
     "react-modal": "^3.12.1",
-    "react-scripts": "^4.0.1"
+    "react-scripts": "^4.0.1",
+    "universal-cookie": "^4.0.4"
   },
   "gh-pages-deploy": {
     "staticpath": "dist",
