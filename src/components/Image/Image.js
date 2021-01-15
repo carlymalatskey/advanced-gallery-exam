@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSyncAlt, faTrashAlt, faExpand } from '@fortawesome/free-solid-svg-icons';
 import './Image.scss';
 import ExpandModal from "./ExpandModal/ExpandModal.js";
 
@@ -74,9 +75,9 @@ class Image extends React.Component {
         }}
         >
         <div>
-          <FontAwesome className="image-icon" name="sync-alt" title="rotate" onClick={() => this.rotateImage()}/>
-          <FontAwesome className="image-icon" name="trash-alt" title="delete" onClick={() => this.deleteImage()}/>
-          <FontAwesome className="image-icon" name="expand" title="expand" onClick={() => this.expandImage()}/>
+          <FontAwesomeIcon icon={faSyncAlt} className="image-icon" name="sync-alt" title="rotate" onClick={() => this.rotateImage()}/>
+          <FontAwesomeIcon icon={faTrashAlt} className="image-icon" name="trash-alt" title="delete" onClick={() => this.deleteImage()}/>
+          <FontAwesomeIcon icon={faExpand} className="image-icon" name="expand" title="expand" onClick={() => this.expandImage()}/>
         </div>
         <ExpandModal showModal={this.state.showExpandModal} image={this.urlFromDto(this.props.dto)} closeModal={() => this.handleCloseModal()}></ExpandModal>
       </div>
