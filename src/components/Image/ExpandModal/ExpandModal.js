@@ -1,4 +1,6 @@
 import React from 'react';
+import Modal from 'react-modal';
+import './ExpandModal.scss';
 
 class ExpandModal extends React.Component {
     constructor(props) {
@@ -7,10 +9,15 @@ class ExpandModal extends React.Component {
 
         }
     }
+    componentDidMount() {
+        Modal.setAppElement('body'); 
+      }
 
     render() {
         return (
-            <div></div>
+            <Modal isOpen={this.props.showModal} portalClassName="modal">
+               <img src={this.props.image} className="expanded-img"/>
+            </Modal>
         )
     }
 }
