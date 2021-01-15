@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Image from '../Image';
 import './Gallery.scss';
-import { BottomScrollListener } from "react-bottom-scroll-listener";
+import InfiniteScroll from 'react-infinite-scroller';
 
 class Gallery extends React.Component {
   static propTypes = {
@@ -14,7 +14,9 @@ class Gallery extends React.Component {
     super(props);
     this.state = {
       images: [],
-      galleryWidth: this.getGalleryWidth()
+      galleryWidth: this.getGalleryWidth(),
+      dragId: 0,
+      page: 1
     };
   }
 
@@ -25,51 +27,62 @@ class Gallery extends React.Component {
       return 1000;
     }
   }
-  getImages(tag) {
-    const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=100&format=json&nojsoncallback=1`;
+
+  getImages = (page) => {
+    const { tag } = this.props;
+    const perPage = 50;
+    const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=${perPage}&format=json&nojsoncallback=1&page=${page}`;
     const baseUrl = 'https://api.flickr.com/';
     axios({
       url: getImagesUrl,
       baseURL: baseUrl,
       method: 'GET'
-    })
-      .then(res => res.data)
-      .then(res => {
-        if (
-          res &&
-          res.photos &&
-          res.photos.photo &&
-          res.photos.photo.length > 0
+    }).then(res => res.data).then(res => {
+      if (res &&
+        res.photos &&
+        res.photos.photo &&
+        res.photos.photo.length > 0
         ) {
-          this.setState({images: res.photos.photo});
-        }
-      });
+        let nextPage = this.state.page + 1;
+        this.setState({
+          page: nextPage,
+          images: this.state.images.concat(res.photos.photo),
+        });
+      }
+    })
   }
 
   componentDidMount() {
-    this.getImages(this.props.tag);
     this.setState({
       galleryWidth: document.body.clientWidth
     });
-  }
-
-  componentWillReceiveProps(props) {
-    this.getImages(props.tag);
   }
 
   handleDelete(imageId) {
     const newSetOfImages = this.state.images.filter(image => image.id != imageId);
     this.setState({
       images:newSetOfImages
-    })
+    });
   }
 
   render() {
+    const { images } = this.state;
     return (
       <div className="gallery-root">
-        {this.state.images.map(dto => {
-          return <Image key={'image-' + dto.id} dto={dto} galleryWidth={this.state.galleryWidth} handleDelete={(id) => this.handleDelete(id)}/>;
-        })}
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={this.getImages}
+          hasMore={true}
+          loader={<div>Gently loading...</div>}
+        >
+          {images.map(dto => {
+            return <Image
+                      key={'image-' + dto.id} 
+                      dto={dto} 
+                      galleryWidth={this.state.galleryWidth}
+                      handleDelete={(id) => this.handleDelete(id)}/>;
+          })}
+        </InfiniteScroll>
       </div>
     );
   }
