@@ -15,6 +15,9 @@
   "author": "Your name here",
   "devDependencies": {},
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "axios": "^0.17.1",
     "core-js": "^2.0.0",
     "node-sass": "^4.7.2",
