@@ -30,15 +30,15 @@ class Gallery extends React.Component {
     }
   }
 
-  getImages = (page) => {
-    if (page > 0) { //therefore they scrolled!
+  getImages = () => {
+    if (this.state.page > 1) { //therefore they scrolled!
       api.analytics.logAction('scroll', 'User scrolled');
     }
     const { tag } = this.props;
-    const perPage = 100;
-    const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=${perPage}&format=json&nojsoncallback=1&page=${page}`;
+    const perPage = 20;
+    const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=${perPage}&format=json&nojsoncallback=1&page=${this.state.page}`;
     const baseUrl = 'https://api.flickr.com/';
-    axios({
+    return axios({
       url: getImagesUrl,
       baseURL: baseUrl,
       method: 'GET'
@@ -54,13 +54,25 @@ class Gallery extends React.Component {
           images: this.state.images.concat(res.photos.photo),
         });
       }
-    })
+    });
   }
 
   componentDidMount() {
+    if (this.props.tag) {
+      this.getImages();
+    }
     this.setState({
       galleryWidth: document.body.clientWidth
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.tag !== prevProps.tag) {
+      this.setState({
+        page: 1,
+        images: []
+      })
+    }
   }
 
   handleDelete(imageId) {
@@ -90,36 +102,56 @@ class Gallery extends React.Component {
     })
   }
 
+  shouldQuery = () => {
+    return this.state.images.length > 0;
+  }
+
   render() {
     const { images } = this.state;
     return (
-      <DragDropContext onDragEnd={(result) => this.onDragEnd(result)}>
-          <div className="gallery-root">
-            <Droppable droppableId='droppable'>
-            {(provided)=>(
-              <div 
-                ref={provided.innerRef} 
-                {...provided.droppableProps}>
-                <InfiniteScroll
-                  pageStart={0}
-                  loadMore={this.getImages}
-                  hasMore={true}
-                  loader={<div>Gently loading...</div>}>
-                    {this.state.images.map((dto, index) => {
-                    return (
-                      <Image 
-                        key={'image-' + dto.id} 
-                        dto={dto} 
-                        index={index} 
-                        galleryWidth={this.state.galleryWidth} 
-                        handleDelete={(id) => this.handleDelete(id)}/>);})}
-
-                </InfiniteScroll>
-                {provided.placeholder}
-              </div>)}
-            </Droppable>
+      <div>
+        {this.props.tag.length > 0 ? 
+          <div>
+            <DragDropContext onDragEnd={(result) => this.onDragEnd(result)}>
+              <div className="gallery-root">
+                <Droppable droppableId='droppable'>
+                {(provided)=>(
+                  <div 
+                    ref={provided.innerRef} 
+                    {...provided.droppableProps}>
+                    <InfiniteScroll
+                      pageStart={0}
+                      loadMore={this.getImages}
+                      hasMore={() => this.shouldQuery()}
+                      loader={<div>Gently loading...</div>}
+                    >
+                      {
+                        this.state.images.map((dto, index) => {
+                          return (
+                            <Image 
+                              key={index} 
+                              dto={dto} 
+                              index={index} 
+                              galleryWidth={this.state.galleryWidth} 
+                              handleDelete={(id) => this.handleDelete(id)}
+                            />
+                          )
+                        })
+                      }
+                    </InfiniteScroll>
+                    {provided.placeholder}
+                  </div>
+                  )}
+                </Droppable>
+              </div>
+          </DragDropContext>
           </div>
-      </DragDropContext>
+          :
+          <div>
+            Write a tag!
+          </div>
+        }
+      </div>
     );
   }
 }

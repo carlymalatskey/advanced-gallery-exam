@@ -13,8 +13,10 @@ class App extends React.Component {
 
   constructor() {
     super();
+    this.typingTimeout = 0;
     this.state = {
-      tag: 'art',
+      tempTag: '',
+      tag: '',
       name: '',
       inputName: ''
     };
@@ -46,15 +48,34 @@ class App extends React.Component {
     }
   }
 
+  handleSearchTagChange = (e) => {
+    let newTag = e.target.value;
+    if (this.typingTimeout) {
+      clearTimeout(this.typingTimeout);
+    }
+    this.typingTimeout = setTimeout(() => {
+      this.setState({
+        tag: newTag
+      })
+    }, 300);
+    this.setState({
+      tempTag: newTag
+    });
+  }
+
   render() {
     return (
       <div className="app-root">
         {this.state.name ? 
           <div>
-            <div>Hello {this.state.name}</div>
+            <div>Hello {this.state.name} </div>
             <div className="app-header">
               <h2>Flickr Gallery</h2>
-              <input className="app-input" onChange={event => this.setState({tag: event.target.value})} value={this.state.tag}/>
+              <div>
+
+              <p>Enter your Search Term:</p>
+              <input className="app-input" onChange={event => this.handleSearchTagChange(event)} value={this.state.tempTag}/>
+              </div>
             </div>
             <Gallery tag={this.state.tag}/>
           </div>
