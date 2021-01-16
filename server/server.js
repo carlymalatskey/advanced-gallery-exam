@@ -36,7 +36,6 @@ app.get('/name', function(req, res) {
 })
 
 app.post('/name', function(req, res) {
-    console.log("entered /name");
     let name = req.body.name;
     res.cookie('name', name);
     res.send({status: "success"});
