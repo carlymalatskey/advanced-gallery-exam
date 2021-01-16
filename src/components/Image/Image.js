@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSyncAlt, faTrashAlt, faExpand } from '@fortawesome/free-solid-svg-icons';
 import './Image.scss';
 import ExpandModal from "./ExpandModal/ExpandModal.js";
+import { Draggable } from 'react-beautiful-dnd';
 
 class Image extends React.Component {
   static propTypes = {
@@ -64,23 +65,33 @@ class Image extends React.Component {
   }
 
   render() {
+
     return (
-      <div
-        className="image-root"
-        style={{
-          backgroundImage: `url(${this.urlFromDto(this.props.dto)})`,
-          width: this.state.size + 'px',
-          height: this.state.size + 'px',
-          transform: `rotate(${this.state.rotation}deg)`
-        }}
-        >
-        <div>
-          <FontAwesomeIcon icon={faSyncAlt} className="image-icon" name="sync-alt" title="rotate" onClick={() => this.rotateImage()}/>
-          <FontAwesomeIcon icon={faTrashAlt} className="image-icon" name="trash-alt" title="delete" onClick={() => this.deleteImage()}/>
-          <FontAwesomeIcon icon={faExpand} className="image-icon" name="expand" title="expand" onClick={() => this.expandImage()}/>
-        </div>
-        <ExpandModal showModal={this.state.showExpandModal} image={this.urlFromDto(this.props.dto)} closeModal={() => this.handleCloseModal()}></ExpandModal>
-      </div>
+      <Draggable
+        key={this.props.dto.id}
+        draggableId={this.props.dto.id}
+        index={this.props.index}>
+          {(provided) => (
+            <div 
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              className="image-root"
+                    style={{
+                      backgroundImage: `url(${this.urlFromDto(this.props.dto)})`,
+                      width: this.state.size + 'px',
+                      height: this.state.size + 'px',
+                      transform: `rotate(${this.state.rotation}deg)`
+                    }}>
+                  <div>
+                      <FontAwesomeIcon icon={faSyncAlt} className="image-icon" name="sync-alt" title="rotate" onClick={() => this.rotateImage()}/>
+                      <FontAwesomeIcon icon={faTrashAlt} className="image-icon" name="trash-alt" title="delete" onClick={() => this.deleteImage()}/>
+                      <FontAwesomeIcon icon={faExpand} className="image-icon" name="expand" title="expand" onClick={() => this.expandImage()}/>
+                  </div>
+                <ExpandModal showModal={this.state.showExpandModal} image={this.urlFromDto(this.props.dto)} closeModal={() => this.handleCloseModal()}></ExpandModal>
+            </div>
+          )}
+      </Draggable>   
     );
   }
 }

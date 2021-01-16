@@ -5,6 +5,7 @@ import Image from '../Image';
 import './Gallery.scss';
 import InfiniteScroll from 'react-infinite-scroller';
 import api from '../../api';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 class Gallery extends React.Component {
   static propTypes = {
@@ -34,7 +35,7 @@ class Gallery extends React.Component {
       api.analytics.logAction('scroll', 'User scrolled');
     }
     const { tag } = this.props;
-    const perPage = 50;
+    const perPage = 100;
     const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=${perPage}&format=json&nojsoncallback=1&page=${page}`;
     const baseUrl = 'https://api.flickr.com/';
     axios({
@@ -68,26 +69,57 @@ class Gallery extends React.Component {
       images:newSetOfImages
     });
   }
+  
+  onDragEnd = (result) => {
+    const { destination, source } = result; 
+    if(!destination) {
+      return;
+    }
+
+    if(destination.droppableId === source.droppableId && destination.index === source.index) {
+      return; 
+    }
+
+    const images = Object.assign([], this.state.images); 
+    const droppedImage = this.state.images[source.index];
+    
+    images.splice(source.index, 1); // remove the image at the index of the source (the image that is being dragged)
+    images.splice(destination.index, 0, droppedImage); // go to the destination index, don't remove an element, and add the droppedImage there
+    this.setState({
+      images
+    })
+  }
 
   render() {
     const { images } = this.state;
     return (
-      <div className="gallery-root">
-        <InfiniteScroll
-          pageStart={0}
-          loadMore={this.getImages}
-          hasMore={true}
-          loader={<div>Gently loading...</div>}
-        >
-          {images.map(dto => {
-            return <Image
-                      key={'image-' + dto.id} 
-                      dto={dto} 
-                      galleryWidth={this.state.galleryWidth}
-                      handleDelete={(id) => this.handleDelete(id)}/>;
-          })}
-        </InfiniteScroll>
-      </div>
+      <DragDropContext onDragEnd={(result) => this.onDragEnd(result)}>
+          <div className="gallery-root">
+            <Droppable droppableId='droppable'>
+            {(provided)=>(
+              <div 
+                ref={provided.innerRef} 
+                {...provided.droppableProps}>
+                <InfiniteScroll
+                  pageStart={0}
+                  loadMore={this.getImages}
+                  hasMore={true}
+                  loader={<div>Gently loading...</div>}>
+                    {this.state.images.map((dto, index) => {
+                    return (
+                      <Image 
+                        key={'image-' + dto.id} 
+                        dto={dto} 
+                        index={index} 
+                        galleryWidth={this.state.galleryWidth} 
+                        handleDelete={(id) => this.handleDelete(id)}/>);})}
+
+                </InfiniteScroll>
+                {provided.placeholder}
+              </div>)}
+            </Droppable>
+          </div>
+      </DragDropContext>
     );
   }
 }
