@@ -45,9 +45,10 @@ app.post('/user-event', function(req, res) {
     let name = req.cookies['name'];
     let type = req.body.type;
     let message = req.body.message;
+    let details = req.body.details;
 
     // do something awesome with this data!`
-    winston.log('info', message, {user: name, action: type});
+    winston.log('info', message, {user: name, action: type, details: details});
 
     res.send({status: "success"});
 

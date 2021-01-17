@@ -12,8 +12,8 @@ const api = {
         },
     },
     analytics: {
-        logAction: (type, message) => {
-            return axiosWithOptions.post(`${baseUrl}/user-event`, {type, message})
+        logAction: (type, message, details) => {
+            return axiosWithOptions.post(`${baseUrl}/user-event`, {type, message, details})
         }
     }
 };
