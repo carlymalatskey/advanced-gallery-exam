@@ -4,6 +4,9 @@ import Gallery from '../Gallery';
 import axios from "axios";
 import Cookies from "universal-cookie";
 import api from './../../api';
+import { GridProvider } from "./../GridContext";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const cookies = new Cookies();
 
@@ -77,7 +80,11 @@ class App extends React.Component {
                 <input className="app-input" onChange={event => this.handleSearchTagChange(event)} value={this.state.tempTag} placeholder={"Enter keyword"}/>
               </div>
             </div>
-            <Gallery tag={this.state.tag}/>
+            <DndProvider backend={HTML5Backend}>
+              <GridProvider tag={this.state.tag}>
+                <Gallery/>
+              </GridProvider>
+            </DndProvider>
           </div>
           :
           <div>
