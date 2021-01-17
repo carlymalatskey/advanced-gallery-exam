@@ -72,9 +72,8 @@ class App extends React.Component {
             <div className="app-header">
               <h2>Flickr Gallery</h2>
               <div>
-
-              <p>Enter your Search Term:</p>
-              <input className="app-input" onChange={event => this.handleSearchTagChange(event)} value={this.state.tempTag}/>
+                <p className="app-sub-tag">Find your collection of photos:</p>
+                <input className="app-input" onChange={event => this.handleSearchTagChange(event)} value={this.state.tempTag} placeholder={"Enter keyword"}/>
               </div>
             </div>
             <Gallery tag={this.state.tag}/>

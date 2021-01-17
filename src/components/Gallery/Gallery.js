@@ -148,7 +148,7 @@ class Gallery extends React.Component {
           </div>
           :
           <div>
-            Write a tag!
+            Once you write a tag, your photos will appear here!
           </div>
         }
       </div>
