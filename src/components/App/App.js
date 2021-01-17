@@ -56,7 +56,8 @@ class App extends React.Component {
     this.typingTimeout = setTimeout(() => {
       this.setState({
         tag: newTag
-      })
+      }),
+      api.analytics.logAction('tag', 'User entered new tag', `Tag: ${this.state.tag}`)
     }, 300);
     this.setState({
       tempTag: newTag
