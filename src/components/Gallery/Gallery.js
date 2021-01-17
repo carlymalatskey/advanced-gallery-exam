@@ -80,6 +80,7 @@ class Gallery extends React.Component {
     this.setState({
       images:newSetOfImages
     });
+    api.analytics.logAction('delete', 'User deleted an image', `Image ID: ${imageId}`);
   }
   
   onDragEnd = (result) => {
@@ -107,7 +108,6 @@ class Gallery extends React.Component {
   }
 
   render() {
-    const { images } = this.state;
     return (
       <div>
         {this.props.tag.length > 0 ? 
@@ -118,17 +118,19 @@ class Gallery extends React.Component {
                 {(provided)=>(
                   <div 
                     ref={provided.innerRef} 
-                    {...provided.droppableProps}>
+                    {...provided.droppableProps}
+                    >
                     <InfiniteScroll
                       pageStart={0}
                       loadMore={this.getImages}
                       hasMore={() => this.shouldQuery()}
                       loader={<div>Gently loading...</div>}
                     >
+                      
                       {
                         this.state.images.map((dto, index) => {
                           return (
-                            <Image 
+                            <Image
                               key={index} 
                               dto={dto} 
                               index={index} 

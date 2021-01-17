@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSyncAlt, faTrashAlt, faExpand } from '@fortawesome/free-solid-svg-icons';
 import './Image.scss';
 import ExpandModal from "./ExpandModal/ExpandModal.js";
+import api from '../../api';
 import { Draggable } from 'react-beautiful-dnd';
 
 class Image extends React.Component {
@@ -48,14 +49,16 @@ class Image extends React.Component {
   expandImage() {
     this.setState({
       showExpandModal: true
-    })
+    });
+    api.analytics.logAction('expand image', 'User expanded an image', `Image Id: ${this.props.dto.id}`);
   }
 
   rotateImage() {
     let newRotation = 90 + this.state.rotation;
     this.setState ({
       rotation: newRotation
-    })
+    });
+    api.analytics.logAction('rotate', 'User rotated an image', `Image Id: ${this.props.dto.id}`);
   }
 
   handleCloseModal = () => {
