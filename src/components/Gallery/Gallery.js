@@ -28,7 +28,6 @@ function Gallery() {
               })
             }
             </Grid>
-          <button type="submit" onClick={() => getItems()}>Load more</button>
         </div>
     </div>
   );
