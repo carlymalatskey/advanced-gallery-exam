@@ -6,7 +6,7 @@ import { Grid, GridItem } from "./../Grid";
 import GridContext from "./../GridContext";
 
 function Gallery() {
-  const { items, moveItem, deleteItem, getItems } = useContext(GridContext);
+  const { items, moveItem, deleteItem } = useContext(GridContext);
 
   return (
     <div>

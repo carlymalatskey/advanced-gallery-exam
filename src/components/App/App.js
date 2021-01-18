@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.scss';
 import Gallery from '../Gallery';
-import axios from "axios";
 import Cookies from "universal-cookie";
 import api from './../../api';
 import { GridProvider } from "./../GridContext";
