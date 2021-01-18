@@ -76,7 +76,7 @@ class App extends React.Component {
             <div className="app-header">
               <h2>Flickr Gallery</h2>
               <div>
-                <p className="app-sub-tag">Find your collection of photos:</p>
+                <p className="app-sub-tag">Find your collection of photos. Enter a tag and your picture will appear below!</p>
                 <input className="app-input" onChange={event => this.handleSearchTagChange(event)} value={this.state.tempTag} placeholder={"Enter keyword"}/>
               </div>
             </div>
