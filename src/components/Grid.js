@@ -2,21 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 export const Grid = styled.div`
-  width: 600px;
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
-`;
-
-export const GridImage = styled.div`
-  flex-grow: 1;
-  border: 1px solid white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: ${props => `url("${props.src}")`};
-  background-size: cover;
-  background-position: 50%;
 `;
 
 const GridItemWrapper = styled.div`
