@@ -6,8 +6,11 @@
   box-sizing: border-box;
   position: relative;
   border: 1px solid white;
+  flex-grow: 1;
+  border: 3px solid red; 
 
-  > div {
+
+  > .image-icon-section {
     visibility: hidden;
     background: rgba(0, 0, 0, 0.7);
     cursor: pointer;
@@ -19,7 +22,6 @@
     color: white;
     padding: 15px;
     text-align: center;
-    text-align: center;
     box-sizing: border-box;
     white-space: pre;
     display: flex;
@@ -27,8 +29,9 @@
     justify-content: center;
   }
 
-  &:hover > div {
+  &:hover > .image-icon-section {
     visibility: visible;
+    background: rgba(0, 0, 0, 0.7);
   }
 
   .image-icon {
@@ -47,4 +50,3 @@
     }
   }
 }
-

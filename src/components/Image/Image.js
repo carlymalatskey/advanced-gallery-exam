@@ -54,7 +54,6 @@ class Image extends React.Component {
     return (        
       <div className="image-root"
             style={{
-              flexGrow: 1,
               border: '1px solid white',
               justifyContent: 'center',
               alignItems: 'center',
@@ -63,7 +62,7 @@ class Image extends React.Component {
               backgroundPosition: '50%',
               transform: `rotate(${this.state.rotation}deg)`
             }}>
-          <div>
+          <div className="image-icon-section">
               <FontAwesomeIcon icon={faSyncAlt} className="image-icon" name="sync-alt" title="rotate" onClick={() => this.rotateImage()}/>
               <FontAwesomeIcon icon={faTrashAlt} className="image-icon" name="trash-alt" title="delete" onClick={() => this.deleteImage()}/>
               <FontAwesomeIcon icon={faExpand} className="image-icon" name="expand" title="expand" onClick={() => this.expandImage()}/>
