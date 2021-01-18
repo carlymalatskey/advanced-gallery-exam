@@ -142,6 +142,11 @@ export class GridProvider extends Component {
     return (
       <GridContext.Provider value={this.state}>
         {this.props.children}
+        {this.state.loading && this.props.tag.length > 0 ?
+           <div>Loading Images...</div>
+           :
+           <div>Your images will appear here!</div>
+         }
         <div
           ref={loadingRef => (this.loadingRef = loadingRef)} />
       </GridContext.Provider>
