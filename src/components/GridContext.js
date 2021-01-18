@@ -1,7 +1,6 @@
 import React, { Component, createContext } from "react";
 import axios from 'axios';
 import api from './../api';
-import { v4 as uuidv4 } from 'uuid';
 
 function move(array, oldIndex, newIndex) {
   if (newIndex >= array.length) {
@@ -29,30 +28,48 @@ export class GridProvider extends Component {
       getItems: this.getItems,
       deleteItem: this.deleteItem,
       page: 1,
+      loading: false,
+      prevY: 0
     };
   }
   
   componentDidMount() {
     this.getItems();
+
+    var options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 1.0
+    };
+    
+    this.observer = new IntersectionObserver(
+      this.handleObserver.bind(this),
+      options 
+    );
+    this.observer.observe(this.loadingRef);
   }
 
+  handleObserver(entities, observer) {
+    const y = entities[0].boundingClientRect.y;
+    if (this.state.prevY > y) {
+      const lastPhoto = this.state.items[this.state.items.length - 1];
+      const curPage = lastPhoto.id;
+      this.getItems(curPage);
+      this.setState({ page: curPage });
+    }
+    this.setState({ prevY: y });
+  }
+
+
   componentDidUpdate(prevProps) {
-    console.log(this.state.items.length);
     if (this.props.tag !== prevProps.tag) {
       this.setItems([]);
       this.setState({
-        page: 1
+        page: 1, 
+        prevY: 0
       })
       this.getItems();
     }
-  }
-
-  render() {
-    return (
-      <GridContext.Provider value={this.state}>
-        {this.props.children}
-      </GridContext.Provider>
-    );
   }
 
   setItems = items => this.setState({ items });
@@ -83,6 +100,7 @@ export class GridProvider extends Component {
   };
 
   getItems = () => {
+    this.setState({ loading: true });
     if (this.state.page > 1) { 
       api.analytics.logAction('scroll', 'User scrolled');
     }
@@ -106,10 +124,10 @@ export class GridProvider extends Component {
         let newRawItems = res.photos.photo;
         let newItems = this.state.items;
         
+        // logic to check for duplicates in the dataset 
         for (let i = 0; i < newRawItems.length; i++) {
           let currentRawItem = newRawItems[i];
           if (newItems.filter(item => item.id === currentRawItem.id).length > 0) {
-            console.log("found duplicate!");
             continue;
           } else {
             newItems.push(currentRawItem);
@@ -119,6 +137,15 @@ export class GridProvider extends Component {
         this.setItems(newItems);
       }
     });
+  }
+  render() {
+    return (
+      <GridContext.Provider value={this.state}>
+        {this.props.children}
+        <div
+          ref={loadingRef => (this.loadingRef = loadingRef)} />
+      </GridContext.Provider>
+    );
   }
 }
 
