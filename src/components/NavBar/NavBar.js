@@ -4,7 +4,8 @@ import {
     BrowserRouter as Router,
     Link
   } from "react-router-dom";
-import { Nav, Image, Button } from 'react-bootstrap';
+import { Nav, Image } from 'react-bootstrap';
+import BackgroundImage from "./../../assets/background.jpg";
 import "./NavBar.scss";
 
 
@@ -17,7 +18,7 @@ class NavBar extends React.Component {
     render() {
         return (
         <Router>
-            <Nav className="nav-bar"> 
+            <Nav className="nav-bar panel panel-default"> 
               <div className="left-header">
                 <Image className="logo-image" src={LogoText} />
               </div>
