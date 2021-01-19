@@ -3,12 +3,15 @@ import './App.scss';
 import Gallery from '../Gallery';
 import Cookies from "universal-cookie";
 import api from './../../api';
-import { Form, Button, Nav } from 'react-bootstrap';
+import { Form, Button, Nav, Image } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
+import LogoDots from "./../../assets/flickrDots.svg";
+import BackgroundImage from "./../../assets/background.jpg";
 import 'react-toastify/dist/ReactToastify.css';
 import { GridProvider } from "./../GridContext";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import NavBar from "./../NavBar/NavBar"
 
 const cookies = new Cookies();
 
@@ -77,9 +80,11 @@ class App extends React.Component {
       <div className="app-root">
         {this.state.name ? 
           <div>
-            <Nav>Hello {this.state.name} </Nav>
-            <div className="app-header">
-              <h2>Flickr Gallery</h2>
+              <NavBar name={this.state.name}></NavBar>
+            <div className="app-header" style={{backgroundImage: `url(${BackgroundImage})`}}>
+              <h2 className="app-title">Your Flickr Inspiration</h2>
+              <h4 style={{fontSize: "14px"}}>Home to tens of billions of photos and 2 million groups.</h4>
+              <Image className="logo-dots" src={LogoDots}></Image>
               <div>
                 <p className="app-sub-tag">Find your collection of photos. Enter a tag and your pictures will appear below!</p>
                 <input className="app-input" onChange={event => this.handleSearchTagChange(event)} value={this.state.tempTag} placeholder={"Enter keyword"}/>
