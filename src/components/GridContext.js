@@ -1,6 +1,9 @@
 import React, { Component, createContext } from "react";
 import axios from 'axios';
 import api from './../api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function move(array, oldIndex, newIndex) {
   if (newIndex >= array.length) {
@@ -34,19 +37,19 @@ export class GridProvider extends Component {
   }
   
   componentDidMount() {
-    this.getItems();
-
+    toast.configure(); 
     var options = {
       root: null,
       rootMargin: "0px",
       threshold: 1.0
     };
-    
-    this.observer = new IntersectionObserver(
-      this.handleObserver.bind(this),
-      options 
-    );
-    this.observer.observe(this.loadingRef);
+    if(this.props.tag.length > 0) {
+      this.observer = new IntersectionObserver(
+        this.handleObserver.bind(this),
+        options 
+      );
+      this.observer.observe(this.loadingRef);
+    }
   }
 
   handleObserver(entities, observer) {
@@ -78,6 +81,7 @@ export class GridProvider extends Component {
     const newSetOfImages = this.state.items.filter(image => image.id != id);
     this.setItems(newSetOfImages);
     api.analytics.logAction('delete', 'User deleted an image', `Image ID: ${id}`);
+    toast("Picture deleted!");
   }
 
   moveItem = (sourceId, destinationId) => {
@@ -97,6 +101,8 @@ export class GridProvider extends Component {
     this.setState(state => ({
       items: moveElement(state.items, sourceIndex, offset)
     }));
+    toast("Pictures reshuffled!");
+
   };
 
   getItems = () => {
@@ -140,16 +146,17 @@ export class GridProvider extends Component {
   }
   render() {
     return (
-      <GridContext.Provider value={this.state}>
-        {this.props.children}
-        {this.state.loading && this.props.tag.length > 0 ?
-           <div>Loading Images...</div>
-           :
-           <div>Your images will appear here!</div>
-         }
-        <div
-          ref={loadingRef => (this.loadingRef = loadingRef)} />
-      </GridContext.Provider>
+      <div>
+        <GridContext.Provider value={this.state}>
+          {this.props.children}
+          {this.state.loading && this.props.tag.length > 0 &&
+            <div>Loading Images...</div>
+          }
+          <div
+            ref={loadingRef => (this.loadingRef = loadingRef)} />
+        </GridContext.Provider>
+        <ToastContainer />
+      </div>
     );
   }
 }
