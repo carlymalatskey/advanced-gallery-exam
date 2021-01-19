@@ -3,6 +3,7 @@ import './App.scss';
 import Gallery from '../Gallery';
 import Cookies from "universal-cookie";
 import api from './../../api';
+import { Form, Button } from 'react-bootstrap';
 import { GridProvider } from "./../GridContext";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -75,7 +76,7 @@ class App extends React.Component {
             <div className="app-header">
               <h2>Flickr Gallery</h2>
               <div>
-                <p className="app-sub-tag">Find your collection of photos. Enter a tag and your picture will appear below!</p>
+                <p className="app-sub-tag">Find your collection of photos. Enter a tag and your pictures will appear below!</p>
                 <input className="app-input" onChange={event => this.handleSearchTagChange(event)} value={this.state.tempTag} placeholder={"Enter keyword"}/>
               </div>
             </div>
@@ -86,9 +87,18 @@ class App extends React.Component {
             </DndProvider>
           </div>
           :
-          <div>
-            <input type="text" placeholder="Enter your name" onChange={(e) => this.handleNameInputChange(e)} value={this.state.inputName}></input>
-            <button type="submit" onClick={() => this.handleSubmitName()}>Submit</button>
+          <div className="enter-name-form">
+            <Form className="form-section">            
+              <Form.Label>Enter your name to access your Flickr Gallery:</Form.Label>
+              <Form.Group>
+                <Form.Control type="text" 
+                              placeholder="Enter name" 
+                              className="name-input" 
+                              onChange={(e) => this.handleNameInputChange(e)} 
+                              value={this.state.inputName}/>
+              </Form.Group>
+            </Form>
+            <Button type="submit" className="submit-button" onClick={() => this.handleSubmitName()}>Submit</Button>
           </div>
         }
       </div>
