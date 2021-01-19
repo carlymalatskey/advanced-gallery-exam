@@ -3,7 +3,9 @@ import './App.scss';
 import Gallery from '../Gallery';
 import Cookies from "universal-cookie";
 import api from './../../api';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Nav } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { GridProvider } from "./../GridContext";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -41,11 +43,14 @@ class App extends React.Component {
   }
 
   async handleSubmitName() {
+    toast.configure(); 
     let nameRequest = await api.user.setName(this.state.inputName);
     if (nameRequest.data.status == "success") {
+      //TODO: ensure toast works on submit
+        toast("Name submitted!");
         this.setState({
           name: cookies.get('name')
-        })
+        });
     } else {
         alert(`Error: ${nameRequest.data.message}`);
     }
@@ -72,7 +77,7 @@ class App extends React.Component {
       <div className="app-root">
         {this.state.name ? 
           <div>
-            <div>Hello {this.state.name} </div>
+            <Nav>Hello {this.state.name} </Nav>
             <div className="app-header">
               <h2>Flickr Gallery</h2>
               <div>
@@ -99,6 +104,7 @@ class App extends React.Component {
               </Form.Group>
             </Form>
             <Button type="submit" className="submit-button" onClick={() => this.handleSubmitName()}>Submit</Button>
+            <ToastContainer />
           </div>
         }
       </div>
