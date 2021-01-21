@@ -3,9 +3,13 @@ import './App.scss';
 import Gallery from '../Gallery';
 import Cookies from "universal-cookie";
 import api from './../../api';
-import { Form, Button, Nav, Image } from 'react-bootstrap';
+import { Form, Button, Card, Image } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import LogoDots from "./../../assets/flickrDots.svg";
+import sportsTag from "./../../assets/sportsTag.jpeg";
+import natureTag from "./../../assets/natureTag.jpg";
+import artsTag from "./../../assets/artsTag.jpeg";
+import beachTag from "./../../assets/beachTag.jpg";
 import BackgroundImage from "./../../assets/background.jpg";
 import 'react-toastify/dist/ReactToastify.css';
 import { GridProvider } from "./../GridContext";
@@ -80,7 +84,7 @@ class App extends React.Component {
       <div className="app-root">
         {this.state.name ? 
           <div>
-              <NavBar name={this.state.name}></NavBar>
+              <NavBar name={this.state.name} tag={this.state.tag}></NavBar>
             <div className="app-header" style={{backgroundImage: `url(${BackgroundImage})`}}>
               <h2 className="app-title">Your Flickr Inspiration</h2>
               <h4 style={{fontSize: "14px"}}>Home to tens of billions of photos and 2 million groups.</h4>
@@ -111,6 +115,37 @@ class App extends React.Component {
             <Button type="submit" className="submit-button" onClick={() => this.handleSubmitName()}>Submit</Button>
             <ToastContainer />
           </div>
+        }
+        {this.state.tag.length <= 0 ? 
+          <div className="trending-section">
+            <h2>Explore Trending Tags</h2>
+            <div className="cards">
+              <Card className="card" onClick={() => this.setState({tempTag: "nature", tag: "nature"})} style={{backgroundImage: `url(${natureTag})`, backgroundSize: "250px 150px"}}>
+                <Card.Body>
+                    <Card.Title className="card-title">Nature</Card.Title>
+                </Card.Body>
+              </Card>
+              <Card className="card" onClick={() => this.setState({tempTag: "sports", tag: "sports"})}
+              style={{backgroundImage: `url(${sportsTag})`, backgroundSize: "165px 150px"}}>
+                <Card.Body>
+                  <Card.Title>Sports</Card.Title>
+                </Card.Body>
+              </Card>
+              <Card className="card" onClick={() => this.setState({tempTag: "arts", tag: "arts"})}
+              style={{backgroundImage: `url(${artsTag})`, backgroundSize: "250px 150px"}}>
+                <Card.Body>
+                  <Card.Title>Arts</Card.Title>
+                </Card.Body>
+              </Card>
+              <Card className="card" onClick={() => this.setState({tempTag: "beach", tag: "beach"})}style={{backgroundImage: `url(${beachTag})`, backgroundSize: "175px 150px"}}>
+                <Card.Body>
+                  <Card.Title>Beach</Card.Title>
+                </Card.Body>
+              </Card>
+            </div>
+        </div>
+          :
+          <div></div>
         }
       </div>
     );
