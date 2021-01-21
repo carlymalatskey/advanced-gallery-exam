@@ -1,10 +1,19 @@
 .nav-bar {
+    position: fixed;
+    top: 0;
     display: flex;
+    background-color: white; 
     align-items: center;
     justify-content: space-between;
     height: 45px;
     width: -webkit-fill-available;
+    z-index: 9999;
   }
+
+  // .nav-bar.scrolled {
+  //   background-color: #fff !important;
+  //   transition: background-color 200ms linear;
+  // }
 
   .left-header {
     display: inline-flex;
@@ -18,6 +27,7 @@
   .name-nav-bar {
     font-size: 12px; 
     margin-right: 20px; 
+    color: black; 
   }
 
   .link-button {
