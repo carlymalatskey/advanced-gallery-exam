@@ -81,11 +81,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="app-root">
+      <div className="app-root" id="app-root">
         {this.state.name ? 
           <div>
               <NavBar name={this.state.name} tag={this.state.tag}></NavBar>
-            <div className="app-header" style={{backgroundImage: `url(${BackgroundImage})`}}>
+            <div className="app-header" id="app-header" style={{backgroundImage: `url(${BackgroundImage})`}}>
               <h2 className="app-title">Your Flickr Inspiration</h2>
               <h4 style={{fontSize: "14px"}}>Home to tens of billions of photos and 2 million groups.</h4>
               <Image className="logo-dots" src={LogoDots}></Image>
