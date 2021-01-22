@@ -61,7 +61,6 @@ export class GridProvider extends Component {
     }
   }
 
-
   componentDidUpdate(prevProps) {
     if (this.props.tag !== prevProps.tag) {
       this.setItems([]);
@@ -100,7 +99,6 @@ export class GridProvider extends Component {
       items: moveElement(state.items, sourceIndex, offset)
     }));
     toast("Pictures reshuffled!");
-
   };
 
   getItems = async () => {
