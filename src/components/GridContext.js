@@ -55,10 +55,7 @@ export class GridProvider extends Component {
     if (this.state.items.length > 0) {
       const y = entities[0].boundingClientRect.y;
       if (this.state.prevY > y) {
-        const lastPhoto = this.state.items[this.state.items.length - 1];
-        const curPage = lastPhoto.id;
         this.getItems();
-        this.setState({ page: curPage });
       }
       this.setState({ prevY: y });
     }
@@ -116,7 +113,7 @@ export class GridProvider extends Component {
     if (res.data && res.data.photos && res.data.photos.photo && res.data.photos.photo.length > 0) {
       this.setState({
         page: this.state.page + 1,
-        totalItems: parseInt(res.data.photos.total)
+        totalItems: this.state.page == 1 ? parseInt(res.data.photos.total) : this.state.totalItems 
       });
       let newRawItems = res.data.photos.photo;
       let newItems = this.state.items;
