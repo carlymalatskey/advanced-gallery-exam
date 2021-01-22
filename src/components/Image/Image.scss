@@ -5,10 +5,7 @@
   vertical-align: top;
   box-sizing: border-box;
   position: relative;
-  border: 1px solid white;
   flex-grow: 1;
-  border: 3px solid red; 
-
 
   > .image-icon-section {
     visibility: hidden;
@@ -20,7 +17,7 @@
     top: 0;
     left: 0;
     color: white;
-    padding: 15px;
+    padding: 2vw; 
     text-align: center;
     box-sizing: border-box;
     white-space: pre;
@@ -35,14 +32,14 @@
   }
 
   .image-icon {
-    font-size: 20px;
+    font-size: 2.5vw;
     vertical-align: middle;
     border: 1px solid #ccc;
     color: #ccc;
     border-radius: 5px;
     cursor: pointer;
-    padding: 12px;
-    margin: 3px;
+    padding: 1.4vw;
+    margin: 0.5vw;
 
     &:hover {
       color: white;

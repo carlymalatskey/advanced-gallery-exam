@@ -83,7 +83,7 @@ class App extends React.Component {
             <NavBar name={this.state.name} tag={this.state.tag}></NavBar>
             <div className="app-header" style={{backgroundImage: `url(${BackgroundImage})`}}>
               <h2 className="app-title">Your Flickr Inspiration</h2>
-              <h4 style={{fontSize: "14px"}}>Home to tens of billions of photos and 2 million groups.</h4>
+              <h4 style={{fontSize: "2.3vw", marginTop: "2vw"}}>Home to tens of billions of photos and 2 million groups.</h4>
               <Image className="logo-dots" src={LogoDots}></Image>
               <div>
                 <p className="app-sub-tag">Find your collection of photos. Enter a tag and your pictures will appear below!</p>
@@ -94,24 +94,24 @@ class App extends React.Component {
               <div className="trending-section">
                 <h2>Explore Trending Tags</h2>
                 <div className="cards">
-                  <Card className="card" onClick={() => this.setState({tempTag: "nature", tag: "nature"})} style={{backgroundImage: `url(${natureTag})`, backgroundSize: "250px 150px"}}>
+                  <Card className="card" onClick={() => this.setState({tempTag: "nature", tag: "nature"})} style={{backgroundImage: `url(${natureTag})`, backgroundSize: "29vw 19vw"}}>
                     <Card.Body>
                         <Card.Title className="card-title">Nature</Card.Title>
                     </Card.Body>
                   </Card>
                   <Card className="card" onClick={() => this.setState({tempTag: "sports", tag: "sports"})}
-                  style={{backgroundImage: `url(${sportsTag})`, backgroundSize: "165px 150px"}}>
+                  style={{backgroundImage: `url(${sportsTag})`, backgroundSize: "25vw 21vw"}}>
                     <Card.Body>
                       <Card.Title>Sports</Card.Title>
                     </Card.Body>
                   </Card>
                   <Card className="card" onClick={() => this.setState({tempTag: "arts", tag: "arts"})}
-                  style={{backgroundImage: `url(${artsTag})`, backgroundSize: "250px 150px"}}>
+                  style={{backgroundImage: `url(${artsTag})`, backgroundSize: "24vw 19vw"}}>
                     <Card.Body>
                       <Card.Title>Arts</Card.Title>
                     </Card.Body>
                   </Card>
-                  <Card className="card" onClick={() => this.setState({tempTag: "beach", tag: "beach"})}style={{backgroundImage: `url(${beachTag})`, backgroundSize: "175px 150px"}}>
+                  <Card className="card" onClick={() => this.setState({tempTag: "beach", tag: "beach"})}style={{backgroundImage: `url(${beachTag})`, backgroundSize: "22vw 19vw"}}>
                     <Card.Body>
                       <Card.Title>Beach</Card.Title>
                     </Card.Body>
