@@ -5,7 +5,6 @@ import { faSyncAlt, faTrashAlt, faExpand } from '@fortawesome/free-solid-svg-ico
 import './Image.scss';
 import ExpandModal from "./ExpandModal/ExpandModal.js";
 import api from '../../api';
-import styled from "styled-components";
 
 class Image extends React.Component {
   static propTypes = {
