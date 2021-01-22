@@ -77,8 +77,6 @@ body, html {
   height: 120px;
   margin: 5px;
   border-radius: 4px; 
-  cursor: pointer; 
-
 }
 
 .card:hover {
@@ -86,6 +84,7 @@ body, html {
   box-shadow: 0px 4px 6px rgba(12, 12, 12, 0.15), 4px 4px 2px rgba(0,0,0,0.15);
   background-color: rgba(0,0,0,.2);
   transition: all 300ms ease;
+  cursor: pointer; 
 }
 
 .card-title {

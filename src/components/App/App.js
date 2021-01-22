@@ -4,7 +4,6 @@ import Gallery from '../Gallery';
 import Cookies from "universal-cookie";
 import api from './../../api';
 import { Form, Button, Card, Image } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
 import LogoDots from "./../../assets/flickrDots.svg";
 import sportsTag from "./../../assets/sportsTag.jpeg";
 import natureTag from "./../../assets/natureTag.jpg";
@@ -50,11 +49,8 @@ class App extends React.Component {
   }
 
   async handleSubmitName() {
-    toast.configure(); 
     let nameRequest = await api.user.setName(this.state.inputName);
     if (nameRequest.data.status == "success") {
-      //TODO: ensure toast works on submit
-        toast("Name submitted!");
         this.setState({
           name: cookies.get('name')
         });
@@ -85,7 +81,7 @@ class App extends React.Component {
         {this.state.name ? 
           <div>
               <NavBar name={this.state.name} tag={this.state.tag}></NavBar>
-            <div className="app-header" id="app-header" style={{backgroundImage: `url(${BackgroundImage})`}}>
+            <div className="app-header" style={{backgroundImage: `url(${BackgroundImage})`}}>
               <h2 className="app-title">Your Flickr Inspiration</h2>
               <h4 style={{fontSize: "14px"}}>Home to tens of billions of photos and 2 million groups.</h4>
               <Image className="logo-dots" src={LogoDots}></Image>
@@ -144,7 +140,6 @@ class App extends React.Component {
               </Form.Group>
             </Form>
             <Button type="submit" className="submit-button" onClick={() => this.handleSubmitName()}>Submit</Button>
-            <ToastContainer />
           </div>
         }
       </div>
