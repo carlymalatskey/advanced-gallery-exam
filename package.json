@@ -6,7 +6,7 @@
     "start": "cd server && yarn start",
     "test": "karma start",
     "test:watch": "karma start --autoWatch=true --singleRun=false",
-    "build": "react-scripts build",
+    "build": "react-scripts build && (cd server && yarn install)",
     "start-client": "react-scripts start",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build"
