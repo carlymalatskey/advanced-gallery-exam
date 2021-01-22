@@ -1,4 +1,4 @@
-# Carly Malatskey Flick Gallery
+# Carly Malatskey's Flickr Gallery
 Here you'll find Carly's submission for the Wix Flickr Gallery exercise.
 
 # Implemented Features
@@ -130,7 +130,7 @@ Implemented react-dnd package to enable users to drag and drop images.
   }));
   ```
 
-- The moveElement function establishes a new index for the dragged image to be placed and calls the move function:
+- The moveElement function establishes a new index for the dragged image to be placed by adding the original index and the offset that is established in the moveItem function above. Then, this function returns the move function by passing in the array of items, the previous index, and the new index:
   ```js
   function moveElement(array, index, offset) {
     const newIndex = index + offset;
