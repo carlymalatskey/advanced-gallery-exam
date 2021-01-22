@@ -132,7 +132,7 @@ class App extends React.Component {
             <NavBar></NavBar>
             <div className="enter-name-form">
               <Form>            
-                <Form.Label>Enter your name to access your Flickr Gallery:</Form.Label>
+                <Form.Label style={{fontSize: "2.8vw"}}>Enter your name to access your Flickr Gallery:</Form.Label>
                 <Form.Group>
                   <Form.Control type="text" 
                                 placeholder="Enter name" 
