@@ -8,7 +8,7 @@ export const Grid = styled.div`
 `;
 
 const GridItemWrapper = styled.div`
-  flex: 0 0 20%;
+  flex: 0 0 25%;
   display: flex;
   justify-content: center;
   align-items: stretch;
