@@ -94,29 +94,7 @@ class App extends React.Component {
                 <input className="app-input" onChange={event => this.handleSearchTagChange(event)} value={this.state.tempTag} placeholder={"Enter keyword"}/>
               </div>
             </div>
-            <DndProvider backend={HTML5Backend}>
-              <GridProvider tag={this.state.tag}>
-                <Gallery/>
-              </GridProvider>
-            </DndProvider>
-          </div>
-          :
-          <div className="enter-name-form">
-            <Form className="form-section">            
-              <Form.Label>Enter your name to access your Flickr Gallery:</Form.Label>
-              <Form.Group>
-                <Form.Control type="text" 
-                              placeholder="Enter name" 
-                              className="name-input" 
-                              onChange={(e) => this.handleNameInputChange(e)} 
-                              value={this.state.inputName}/>
-              </Form.Group>
-            </Form>
-            <Button type="submit" className="submit-button" onClick={() => this.handleSubmitName()}>Submit</Button>
-            <ToastContainer />
-          </div>
-        }
-        {this.state.tag.length <= 0 ? 
+            {this.state.tag.length <= 0 ? 
           <div className="trending-section">
             <h2>Explore Trending Tags</h2>
             <div className="cards">
@@ -146,6 +124,28 @@ class App extends React.Component {
         </div>
           :
           <div></div>
+        }
+            <DndProvider backend={HTML5Backend}>
+              <GridProvider tag={this.state.tag}>
+                <Gallery/>
+              </GridProvider>
+            </DndProvider>
+          </div>
+          :
+          <div className="enter-name-form">
+            <Form className="form-section">            
+              <Form.Label>Enter your name to access your Flickr Gallery:</Form.Label>
+              <Form.Group>
+                <Form.Control type="text" 
+                              placeholder="Enter name" 
+                              className="name-input" 
+                              onChange={(e) => this.handleNameInputChange(e)} 
+                              value={this.state.inputName}/>
+              </Form.Group>
+            </Form>
+            <Button type="submit" className="submit-button" onClick={() => this.handleSubmitName()}>Submit</Button>
+            <ToastContainer />
+          </div>
         }
       </div>
     );
