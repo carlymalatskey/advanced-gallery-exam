@@ -38,3 +38,18 @@
   .search {
     margin-right: 10px; 
   }
+
+  @keyframes example {
+    0%   {color:black; left:0px; top:0px;}
+    25%  {color:#1463DC; left:200px; top:0px;}
+    50%  {color:#FF1684; left:200px; top:200px;}
+    75%  {color:#1463DC; left:0px; top:200px;}
+    100% {color: black; left:0px; top:0px;}
+  }
+  
+  .join-flickr {
+    animation-name: example;
+    animation-duration: 4s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+  }
