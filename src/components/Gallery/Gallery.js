@@ -6,11 +6,16 @@ import { Grid, GridItem } from "./../Grid";
 import GridContext from "./../GridContext";
 
 function Gallery() {
-  const { items, moveItem, deleteItem } = useContext(GridContext);
+  const { items, moveItem, deleteItem, totalItems } = useContext(GridContext);
 
   return (
     <div>
         <div className="gallery-root">
+            {items.length > 0 ? 
+              <div className="displaying-label">Displaying [{items.length}/{totalItems}]</div>
+              : 
+              <div></div>
+            }
             <Grid>
               {items.map((item, index) => {
                 return (
