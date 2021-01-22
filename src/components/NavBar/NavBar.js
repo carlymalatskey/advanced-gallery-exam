@@ -17,10 +17,18 @@ class NavBar extends React.Component {
             <div className="left-header">
               <Image className="logo-image" src={LogoText} />
             </div>
-            <div style={{display: "inline-flex"}}>
-              <a className="link-button search" href="/#app-root">Back To Top</a>            
-              <h4 className="name-nav-bar">Welcome {this.props.name}!</h4>
-              <a href="https://www.flickr.com/" target="_blank" className="link-button join-flickr">Join the Flickr Community </a>
+            <div>
+              {!this.props.name ?
+                <div>
+                  <a href="https://www.flickr.com/" target="_blank" className="link-button join-flickr">Join the Flickr Community </a>
+                </div> 
+                :
+                <div style={{display: "inline-flex"}}>
+                  <a className="link-button search" href="/#app-root">Back To Top</a>            
+                  <h4 className="name-nav-bar">Welcome {this.props.name}!</h4>
+                  <a href="https://www.flickr.com/" target="_blank" className="link-button join-flickr">Join the Flickr Community </a>
+                </div> 
+              }
             </div>
           </Nav>
         )
