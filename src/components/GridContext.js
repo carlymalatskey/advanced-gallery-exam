@@ -41,7 +41,7 @@ export class GridProvider extends Component {
     toast.configure(); 
     var options = {
       root: null,
-      rootMargin: "0px",
+      rootMargin: "0%",
       threshold: 1.0
     };
       this.observer = new IntersectionObserver(
