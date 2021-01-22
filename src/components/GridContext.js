@@ -98,7 +98,6 @@ export class GridProvider extends Component {
     this.setState(state => ({
       items: moveElement(state.items, sourceIndex, offset)
     }));
-    toast("Pictures reshuffled!");
   };
 
   getItems = async () => {

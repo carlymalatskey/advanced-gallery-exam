@@ -16,28 +16,28 @@ body, html {
 }
 
 .app-header {
-  margin-top: 20px; 
-  padding: 10px;
+  margin-top: 2vw; 
+  padding: 1.5vw;
   color: white;
-  font-size: 20pt;
+  font-size: 4vw;
 }
 .app-title {
-  margin-bottom: 10px; 
+  margin-bottom: 0.7vw; 
 }
 .app-sub-tag {
-  font-size: 14px;
+  font-size: 1.7vw;
   margin: 0px; 
 }
 
 .app-input {
-  line-height: 30px;
+  line-height: 4.5vw;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  padding: 0 8px;
+  border-radius: 0.6vw;
+  font-size: 2.2vw;
+  padding: 0 1vw;
   color: #666;
-  width: 400px;
-  margin-bottom: 30px;
+  width: 63vw;
+  margin-bottom: 2vw;
 }
 
 .enter-name-form {
@@ -73,9 +73,9 @@ body, html {
 
 .card {
   border: none; 
-  width: 140px; 
-  height: 120px;
-  margin: 5px;
+  width: 22vw; 
+  height: 19vw;
+  margin: 1vw;
   border-radius: 4px; 
 }
 
@@ -90,10 +90,10 @@ body, html {
 .card-title {
     border-radius: 5px;
     max-width: 80%;
-    padding: 12px 10px;
+    padding: 1.9vw 1.6vw;
     color: #fff;
-    font-size: 16px;
-    text-shadow: 0 0 3px rgba(0,0,0,.3);
+    font-size: 2.3vw;
+    text-shadow: 0 0 0.1vw rgba(0,0,0,.3);
     font-weight: 900;
     letter-spacing: .05em;
 }

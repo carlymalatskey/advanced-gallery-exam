@@ -24,8 +24,8 @@ class NavBar extends React.Component {
                 </div> 
                 :
                 <div style={{display: "inline-flex"}}>
-                  <a className="link-button search" href="/#app-root">Back To Top</a>            
                   <h4 className="name-nav-bar">Welcome {this.props.name}!</h4>
+                  <a className="link-button search" href="/#app-root">Back To Top</a>            
                   <a href="https://www.flickr.com/" target="_blank" className="link-button join-flickr">Join the Flickr Community </a>
                 </div> 
               }

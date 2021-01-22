@@ -5,7 +5,7 @@
     background-color: white; 
     align-items: center;
     justify-content: space-between;
-    height: 45px;
+    height: 7vw;
     width: -webkit-fill-available;
     z-index: 9999;
   }
@@ -15,28 +15,29 @@
   }
   
   .logo-image {
-    width: 100px; 
-    margin-left: 5px; 
+    width: 15.7vw; 
+    margin-left: 0.8vw; 
   }
   
   .name-nav-bar {
-    font-size: 12px; 
-    margin-right: 20px; 
+    font-size: 1.5vw; 
+    margin-right: 1.5vw; 
     color: black; 
+    margin-top: 2.2vw;
   }
 
   .link-button {
       border: none;
       background-color: none !important; 
-      margin-right: 5px; 
+      margin-right: 1.2vw; 
       color: black; 
-      margin-top: 17px;
-      font-size: 10px; 
+      margin-top: 2.2vw;
+      font-size: 1.5vw; 
       font-weight: bold; 
   }
 
   .search {
-    margin-right: 10px; 
+    margin-right: 1.4vw;
   }
 
   @keyframes example {
