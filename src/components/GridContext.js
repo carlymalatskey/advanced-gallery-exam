@@ -30,6 +30,7 @@ export class GridProvider extends Component {
       moveItem: this.moveItem,
       getItems: this.getItems,
       deleteItem: this.deleteItem,
+      totalItems: 0,
       page: 1,
       loading: false,
       prevY: 0
@@ -43,24 +44,24 @@ export class GridProvider extends Component {
       rootMargin: "0px",
       threshold: 1.0
     };
-    if(this.props.tag.length > 0) {
       this.observer = new IntersectionObserver(
         this.handleObserver.bind(this),
         options 
       );
       this.observer.observe(this.loadingRef);
-    }
   }
 
-  handleObserver(entities, observer) {
-    const y = entities[0].boundingClientRect.y;
-    if (this.state.prevY > y) {
-      const lastPhoto = this.state.items[this.state.items.length - 1];
-      const curPage = lastPhoto.id;
-      this.getItems(curPage);
-      this.setState({ page: curPage });
+  handleObserver = (entities, observer) => {
+    if (this.state.items.length > 0) {
+      const y = entities[0].boundingClientRect.y;
+      if (this.state.prevY > y) {
+        const lastPhoto = this.state.items[this.state.items.length - 1];
+        const curPage = lastPhoto.id;
+        this.getItems();
+        this.setState({ page: curPage });
+      }
+      this.setState({ prevY: y });
     }
-    this.setState({ prevY: y });
   }
 
 
@@ -105,52 +106,46 @@ export class GridProvider extends Component {
 
   };
 
-  getItems = () => {
+  getItems = async () => {
     this.setState({ loading: true });
     if (this.state.page > 1) { 
       api.analytics.logAction('scroll', 'User scrolled');
     }
     const { tag } = this.props;
-    const perPage = 20;
-    const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=${perPage}&format=json&nojsoncallback=1&page=${this.state.page}`;
-    const baseUrl = 'https://api.flickr.com/';
-    return axios({
-      url: getImagesUrl,
-      baseURL: baseUrl,
-      method: 'GET'
-    }).then(res => res.data).then(res => {
-      if (res &&
-        res.photos &&
-        res.photos.photo &&
-        res.photos.photo.length > 0
-        ) {
-        this.setState({
-          page: this.state.page + 1
-        });
-        let newRawItems = res.photos.photo;
-        let newItems = this.state.items;
-        
-        // logic to check for duplicates in the dataset 
-        for (let i = 0; i < newRawItems.length; i++) {
-          let currentRawItem = newRawItems[i];
-          if (newItems.filter(item => item.id === currentRawItem.id).length > 0) {
-            continue;
-          } else {
-            newItems.push(currentRawItem);
-          }
+    let res = await api.search.getItems(tag, this.state.page);
+    if (res.data && res.data.photos && res.data.photos.photo && res.data.photos.photo.length > 0) {
+      this.setState({
+        page: this.state.page + 1,
+        totalItems: parseInt(res.data.photos.total)
+      });
+      let newRawItems = res.data.photos.photo;
+      let newItems = this.state.items;
+      for (let i = 0; i < newRawItems.length; i++) {
+        let currentRawItem = newRawItems[i];
+        if (newItems.filter(item => item.id === currentRawItem.id).length > 0) {
+          continue;
+        } else {
+          newItems.push(currentRawItem);
         }
-
-        this.setItems(newItems);
       }
-    });
-  }
+      this.setItems(newItems);
+      }
+    };
+
   render() {
     return (
       <div>
         <GridContext.Provider value={this.state}>
           {this.props.children}
           {this.state.loading && this.props.tag.length > 0 &&
-            <div>Loading Images...</div>
+            <div>
+              <div>Loading Images...</div>
+              {this.state.items.length > 0 ? 
+                <div>Displaying [{this.state.items.length}/{this.state.totalItems}]</div>
+                :
+                <div></div>
+              }
+            </div>
           }
           <div
             ref={loadingRef => (this.loadingRef = loadingRef)} />
