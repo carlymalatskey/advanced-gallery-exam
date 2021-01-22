@@ -80,7 +80,7 @@ class App extends React.Component {
       <div className="app-root" id="app-root">
         {this.state.name ? 
           <div>
-              <NavBar name={this.state.name} tag={this.state.tag}></NavBar>
+            <NavBar name={this.state.name} tag={this.state.tag}></NavBar>
             <div className="app-header" style={{backgroundImage: `url(${BackgroundImage})`}}>
               <h2 className="app-title">Your Flickr Inspiration</h2>
               <h4 style={{fontSize: "14px"}}>Home to tens of billions of photos and 2 million groups.</h4>
@@ -91,36 +91,36 @@ class App extends React.Component {
               </div>
             </div>
             {this.state.tag.length <= 0 ? 
-          <div className="trending-section">
-            <h2>Explore Trending Tags</h2>
-            <div className="cards">
-              <Card className="card" onClick={() => this.setState({tempTag: "nature", tag: "nature"})} style={{backgroundImage: `url(${natureTag})`, backgroundSize: "250px 150px"}}>
-                <Card.Body>
-                    <Card.Title className="card-title">Nature</Card.Title>
-                </Card.Body>
-              </Card>
-              <Card className="card" onClick={() => this.setState({tempTag: "sports", tag: "sports"})}
-              style={{backgroundImage: `url(${sportsTag})`, backgroundSize: "165px 150px"}}>
-                <Card.Body>
-                  <Card.Title>Sports</Card.Title>
-                </Card.Body>
-              </Card>
-              <Card className="card" onClick={() => this.setState({tempTag: "arts", tag: "arts"})}
-              style={{backgroundImage: `url(${artsTag})`, backgroundSize: "250px 150px"}}>
-                <Card.Body>
-                  <Card.Title>Arts</Card.Title>
-                </Card.Body>
-              </Card>
-              <Card className="card" onClick={() => this.setState({tempTag: "beach", tag: "beach"})}style={{backgroundImage: `url(${beachTag})`, backgroundSize: "175px 150px"}}>
-                <Card.Body>
-                  <Card.Title>Beach</Card.Title>
-                </Card.Body>
-              </Card>
-            </div>
-        </div>
-          :
-          <div></div>
-        }
+              <div className="trending-section">
+                <h2>Explore Trending Tags</h2>
+                <div className="cards">
+                  <Card className="card" onClick={() => this.setState({tempTag: "nature", tag: "nature"})} style={{backgroundImage: `url(${natureTag})`, backgroundSize: "250px 150px"}}>
+                    <Card.Body>
+                        <Card.Title className="card-title">Nature</Card.Title>
+                    </Card.Body>
+                  </Card>
+                  <Card className="card" onClick={() => this.setState({tempTag: "sports", tag: "sports"})}
+                  style={{backgroundImage: `url(${sportsTag})`, backgroundSize: "165px 150px"}}>
+                    <Card.Body>
+                      <Card.Title>Sports</Card.Title>
+                    </Card.Body>
+                  </Card>
+                  <Card className="card" onClick={() => this.setState({tempTag: "arts", tag: "arts"})}
+                  style={{backgroundImage: `url(${artsTag})`, backgroundSize: "250px 150px"}}>
+                    <Card.Body>
+                      <Card.Title>Arts</Card.Title>
+                    </Card.Body>
+                  </Card>
+                  <Card className="card" onClick={() => this.setState({tempTag: "beach", tag: "beach"})}style={{backgroundImage: `url(${beachTag})`, backgroundSize: "175px 150px"}}>
+                    <Card.Body>
+                      <Card.Title>Beach</Card.Title>
+                    </Card.Body>
+                  </Card>
+                </div>
+              </div>
+              :
+              <div></div>
+            }
             <DndProvider backend={HTML5Backend}>
               <GridProvider tag={this.state.tag}>
                 <Gallery/>
@@ -128,18 +128,21 @@ class App extends React.Component {
             </DndProvider>
           </div>
           :
-          <div className="enter-name-form">
-            <Form className="form-section">            
-              <Form.Label>Enter your name to access your Flickr Gallery:</Form.Label>
-              <Form.Group>
-                <Form.Control type="text" 
-                              placeholder="Enter name" 
-                              className="name-input" 
-                              onChange={(e) => this.handleNameInputChange(e)} 
-                              value={this.state.inputName}/>
-              </Form.Group>
-            </Form>
-            <Button type="submit" className="submit-button" onClick={() => this.handleSubmitName()}>Submit</Button>
+          <div>
+            <NavBar></NavBar>
+            <div className="enter-name-form">
+              <Form>            
+                <Form.Label>Enter your name to access your Flickr Gallery:</Form.Label>
+                <Form.Group>
+                  <Form.Control type="text" 
+                                placeholder="Enter name" 
+                                className="name-input" 
+                                onChange={(e) => this.handleNameInputChange(e)} 
+                                value={this.state.inputName}/>
+                </Form.Group>
+              </Form>
+              <Button type="submit" className="submit-button" onClick={() => this.handleSubmitName()}>Submit</Button>
+            </div>
           </div>
         }
       </div>
