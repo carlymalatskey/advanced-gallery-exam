@@ -73,7 +73,7 @@ Here you'll find Carly's submission for the Wix Flickr Gallery exercise.
         (window.innerHeight + document.documentElement.scrollTop) - document.documentElement.offsetHeight) < 10
     ```
 
-[![Drag n Drop](https://media2.giphy.com/media/c9NPRMFRsxjTtZIhtl/giphy.gif)](https://media2.giphy.com/media/c9NPRMFRsxjTtZIhtl/giphy.gif)
+[![Infinite Scroll](https://media4.giphy.com/media/qd7i9dRyGnA6E9wLN0/giphy.gif)](https://media4.giphy.com/media/qd7i9dRyGnA6E9wLN0/giphy.gif)
 
 ### Drag-n-Drop
 Implemented react-dnd package to enable users to drag and drop images. 
