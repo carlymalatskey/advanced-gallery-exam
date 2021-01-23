@@ -70,14 +70,14 @@ class App extends React.Component {
   render() {
     return (
       <div className="app-root" id="app-root">
-        <NavBar name={this.state.name}></NavBar>
+        <div className="nav-box">
+          <NavBar name={this.state.name}></NavBar>
+        </div>
         {this.isLoggedIn() ? 
           <div>
             <AppHeader handleTagChange={(tag) => this.handleTagChange(tag)} tag={this.state.tag}/>
-            {this.shouldShowTrendingTags() ? 
+            {this.shouldShowTrendingTags() &&
               <TrendingTags changeTag={(tag) => this.handleTagChange(tag)}/>
-              :
-              <div></div>
             }
             <DndProvider backend={HTML5Backend}>
               <GridProvider tag={this.state.tag}>
