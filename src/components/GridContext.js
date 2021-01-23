@@ -3,6 +3,7 @@ import axios from 'axios';
 import api from './../api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import debounce from "lodash.debounce";
 
 
 function move(array, oldIndex, newIndex) {
@@ -35,30 +36,28 @@ export class GridProvider extends Component {
       loading: false,
       prevY: 0
     };
+
+    window.onscroll = debounce(() => {
+      const {
+        getItems,
+        state: {
+          loading
+        },
+      } = this;
+
+      if (loading) return;
+
+      // Checks that the page has scrolled to the bottom
+      if (
+        Math.abs((window.innerHeight + document.documentElement.scrollTop) - document.documentElement.offsetHeight) < 10
+      ) {
+        this.getItems();
+      }
+    }, 100);
   }
   
   componentDidMount() {
     toast.configure(); 
-    var options = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0
-    };
-      this.observer = new IntersectionObserver(
-        this.handleObserver.bind(this),
-        options 
-      );
-      this.observer.observe(this.loadingRef);
-  }
-
-  handleObserver = (entities, observer) => {
-    if (this.state.items.length > 0) {
-      const y = entities[0].boundingClientRect.y;
-      if (this.state.prevY > y) {
-        this.getItems();
-      }
-      this.setState({ prevY: y });
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -110,7 +109,8 @@ export class GridProvider extends Component {
     if (res.data && res.data.photos && res.data.photos.photo && res.data.photos.photo.length > 0) {
       this.setState({
         page: this.state.page + 1,
-        totalItems: this.state.page == 1 ? parseInt(res.data.photos.total) : this.state.totalItems 
+        totalItems: this.state.page == 1 ? parseInt(res.data.photos.total) : this.state.totalItems,
+        loading: false
       });
       let newRawItems = res.data.photos.photo;
       let newItems = this.state.items;
@@ -141,8 +141,6 @@ export class GridProvider extends Component {
               }
             </div>
           }
-          <div
-            ref={loadingRef => (this.loadingRef = loadingRef)} />
         </GridContext.Provider>
         <ToastContainer />
       </div>
