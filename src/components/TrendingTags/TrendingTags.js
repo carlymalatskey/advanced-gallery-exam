@@ -19,7 +19,7 @@ class TrendingTags extends React.Component {
     render() {
         return (
             <div className="trending-section">
-                <div>Explore Trending Tags</div>
+                <div className="trending-title">Explore Trending Tags</div>
                 <div className="cards">
                   <Card className="card" onClick={() => this.handleChooseTag('nature')} style={{backgroundImage: `url(${natureTag})`, backgroundSize: "29vw 19vw"}}>
                     <Card.Body>
