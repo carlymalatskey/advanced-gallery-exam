@@ -4,7 +4,7 @@ import { useDrag, useDrop } from "react-dnd";
 const DragItem = memo(({ id, onMoveItem, children }) => {
   const ref = useRef(null);
 
-  const [{ isDragging }, connectDrag] = useDrag({
+  const [{ isDragging }, drag] = useDrag({
     item: { id, type: "IMG" },
     collect: monitor => {
       return {
@@ -13,7 +13,7 @@ const DragItem = memo(({ id, onMoveItem, children }) => {
     }
   });
 
-  const [, connectDrop] = useDrop({
+  const [, drop] = useDrop({
     accept: "IMG",
     hover(hoveredOverItem) {
       if (hoveredOverItem.id !== id) {
@@ -22,12 +22,11 @@ const DragItem = memo(({ id, onMoveItem, children }) => {
     }
   });
 
-  connectDrag(ref);
-  connectDrop(ref);
+  drag(ref);
+  drop(ref);
 
   const opacity = isDragging ? 0.5 : 1;
   const containerStyle = { opacity };
-
   return React.Children.map(children, child =>
     React.cloneElement(child, {
       forwardedRef: ref,
