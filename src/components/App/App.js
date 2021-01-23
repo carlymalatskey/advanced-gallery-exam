@@ -15,6 +15,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import NavBar from "./../NavBar/NavBar";
 import LoginForm from "./../LoginForm/LoginForm";
 import AppHeader from '../AppHeader/AppHeader';
+import TrendingTags from '../TrendingTags/TrendingTags';
 
 const cookies = new Cookies();
 
@@ -62,41 +63,19 @@ class App extends React.Component {
     return (this.state.name !== undefined);
   }
 
+  shouldShowTrendingTags = () => {
+    return (this.state.tag.length === 0);
+  }
+
   render() {
     return (
       <div className="app-root" id="app-root">
         <NavBar name={this.state.name}></NavBar>
         {this.isLoggedIn() ? 
           <div>
-            <AppHeader handleTagChange={(tag) => this.handleTagChange(tag)}/>
-            {this.state.tag.length <= 0 ? 
-              <div className="trending-section">
-                <div>Explore Trending Tags</div>
-                <div className="cards">
-                  <Card className="card" onClick={() => this.setState({tempTag: "nature", tag: "nature"})} style={{backgroundImage: `url(${natureTag})`, backgroundSize: "29vw 19vw"}}>
-                    <Card.Body>
-                        <Card.Title className="card-title">Nature</Card.Title>
-                    </Card.Body>
-                  </Card>
-                  <Card className="card" onClick={() => this.setState({tempTag: "sports", tag: "sports"})}
-                  style={{backgroundImage: `url(${sportsTag})`, backgroundSize: "25vw 21vw"}}>
-                    <Card.Body>
-                      <Card.Title>Sports</Card.Title>
-                    </Card.Body>
-                  </Card>
-                  <Card className="card" onClick={() => this.setState({tempTag: "arts", tag: "arts"})}
-                  style={{backgroundImage: `url(${artsTag})`, backgroundSize: "24vw 19vw"}}>
-                    <Card.Body>
-                      <Card.Title>Arts</Card.Title>
-                    </Card.Body>
-                  </Card>
-                  <Card className="card" onClick={() => this.setState({tempTag: "beach", tag: "beach"})}style={{backgroundImage: `url(${beachTag})`, backgroundSize: "22vw 19vw"}}>
-                    <Card.Body>
-                      <Card.Title>Beach</Card.Title>
-                    </Card.Body>
-                  </Card>
-                </div>
-              </div>
+            <AppHeader handleTagChange={(tag) => this.handleTagChange(tag)} tag={this.state.tag}/>
+            {this.shouldShowTrendingTags() ? 
+              <TrendingTags changeTag={(tag) => this.handleTagChange(tag)}/>
               :
               <div></div>
             }

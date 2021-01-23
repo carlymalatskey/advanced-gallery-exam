@@ -9,7 +9,15 @@ class AppHeader extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tempTag: ''
+            inputTag: ''
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.tag !== prevProps.tag) {
+            this.setState({
+                inputTag: this.props.tag
+            })
         }
     }
 
@@ -19,10 +27,10 @@ class AppHeader extends React.Component {
           clearTimeout(this.typingTimeout);
         }
         this.typingTimeout = setTimeout(() => {
-          this.props.handleTagChange(this.state.tempTag);
+          this.props.handleTagChange(this.state.inputTag);
         }, 300);
         this.setState({
-          tempTag: newTag
+            inputTag: newTag
         });
     }
 
@@ -34,7 +42,7 @@ class AppHeader extends React.Component {
                 <Image className="logo-dots" src={LogoDots}></Image>
                 <div>
                     <div className="app-sub-tag">Find your collection of photos. Enter a tag and your pictures will appear below!</div>
-                    <input className="app-input" onChange={event => this.handleSearchTagChange(event)} value={this.state.tempTag} placeholder={"Enter keyword"}/>
+                    <input className="app-input" onChange={event => this.handleSearchTagChange(event)} value={this.state.inputTag} placeholder={"Enter keyword"}/>
                 </div>
             </div>
         );

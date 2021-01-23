@@ -1,0 +1,31 @@
+.cards {
+    display: inline-flex; 
+}
+
+.card {
+    border: none; 
+    width: 22vw; 
+    height: 19vw;
+    margin: 1vw;
+    border-radius: 4px; 
+}
+  
+.card:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 4px 6px rgba(12, 12, 12, 0.15), 4px 4px 2px rgba(0,0,0,0.15);
+    background-color: rgba(0,0,0,.2);
+    transition: all 300ms ease;
+    cursor: pointer; 
+}
+  
+.card-title {
+    border-radius: 5px;
+    max-width: 80%;
+    padding: 1.9vw 1.6vw;
+    color: #fff;
+    font-size: 2.3vw;
+    text-shadow: 0 0 0.1vw rgba(0,0,0,.3);
+    font-weight: 900;
+    letter-spacing: .05em;
+}
+  
