@@ -13,7 +13,7 @@ Here you'll find Carly's submission for the Wix Flickr Gallery exercise.
 9) Tech Design
 
 ### Delete, Rotate, Expand an Image
-- To delete an image, identified the image id and filtered out the images in the gallery that do not have the image Id
+- To delete an image, identified the image id and filtered through the array of images to include the ones that do not have the image id. 
   ```js
   deleteItem = (id) => {
     const newSetOfImages = this.state.items.filter(image => image.id != id);
@@ -41,40 +41,38 @@ Here you'll find Carly's submission for the Wix Flickr Gallery exercise.
   [![Alt text](https://media0.giphy.com/media/0wqU19894rKNReNx1y/giphy.gif)](https://media0.giphy.com/media/0wqU19894rKNReNx1y/giphy.gif)
 
 ### Infinite Scrolling
+  Implemented infinite scrolling by using the onscroll event that checks to see if the user has scrolled to the bottom of the page. Upon reaching the end, the event will load additional content. 
+  
+  Debounced the event to ensure that it's only called after a certain amount of time before running again. This enables enough time to load the images once it reaches the bottom of the window and improves user performance.
 
-Implemented React's IntersectionObserver API, which enables us to observe changes in the "intersection of a target element with an ancestor element or with a top-level document's viewport."
+ ```js
+     window.onscroll = debounce(() => {
+      const {
+        getItems,
+        state: {
+          loading
+        },
+      } = this;
 
-*enter explanation*
+      if (loading) return;
 
-  ```js
-  componentDidMount() {
-    toast.configure(); 
-    var options = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 1.0
-    };
-      this.observer = new IntersectionObserver(
-        this.handleObserver.bind(this),
-        options 
-      );
-      this.observer.observe(this.loadingRef);
-  }
-  ```
-
-  ```js
-  handleObserver = (entities, observer) => {
-    if (this.state.items.length > 0) {
-      const y = entities[0].boundingClientRect.y;
-      if (this.state.prevY > y) {
+      // Checks that the page has scrolled to the bottom
+      if (
+        Math.abs((window.innerHeight + document.documentElement.scrollTop) - document.documentElement.offsetHeight) < 10
+      ) {
         this.getItems();
       }
-      this.setState({ prevY: y });
-    }
+    }, 100);
   }
-  ```
+ ```
 
-[![Alt text](https://media0.giphy.com/media/sOULwm2BbPS4oTeBwl/giphy.gif)](https://media0.giphy.com/media/sOULwm2BbPS4oTeBwl/giphy.gif)
+ - To check that the user has scrolled to the bottom, compared the sum of the window's inner height with the user's position (scrollTop) to the offset height of the element. If the difference is less than 10px, then the items are fetched to load more. 
+    ```js
+      Math.abs(
+        (window.innerHeight + document.documentElement.scrollTop) - document.documentElement.offsetHeight) < 10
+    ```
+
+  [![Alt text](https://media0.giphy.com/media/hMpKiEDqtRFi9kY9jM/giphy.gif)](https://media0.giphy.com/media/hMpKiEDqtRFi9kY9jM/giphy.gif)
 
 ### Drag-n-Drop
 Implemented react-dnd package to enable users to drag and drop images. 
@@ -168,20 +166,26 @@ Using react's toastr package, the user receives a notification upon deleting an 
 
 ### Trending Tags Section 
 Upon entering the flickr website, the user is able to see Trending Tags, including "Nature", "Sports", "Arts", "Beach".
-Clicking any of the tags directly retrieves the respective images from the flickr API. 
+Clicking any of the tags directly loads the respective images.
 
-[![Alt text](https://media4.giphy.com/media/AzWszUpmjIreONc872/giphy.gif)](https://media4.giphy.com/media/AzWszUpmjIreONc872/giphy.gif)
+  [![Alt text](https://media1.giphy.com/media/9kFFwEFypcGwC0UZa5/giphy.gif)](https://media1.giphy.com/media/9kFFwEFypcGwC0UZa5/giphy.gif)
 
 ### Website redesign
 The website now includes different features, including:  
-- A fixed navigation bar that includes: 
-    - A "back to top" link to always return to the top of the webpage
+- Hidden header upon entering a tag: 
 
-    [![Alt text](https://media3.giphy.com/media/Basy1YJPoZAk6m9d9Q/giphy.gif)](https://media3.giphy.com/media/Basy1YJPoZAk6m9d9Q/giphy.gif)
+  [![Alt text](https://media2.giphy.com/media/9bFNrYSnvb6wzyJSWU/giphy.gif)](https://media2.giphy.com/media/9bFNrYSnvb6wzyJSWU/giphy.gif)
+
+
+- A navigation bar that includes: 
+    - An option to return to the top of the webpage
+
+    [![Alt text](https://media1.giphy.com/media/gs7BTel1asxhU0qq7Z/giphy.gif)](https://media1.giphy.com/media/gs7BTel1asxhU0qq7Z/giphy.gif)
 
     - A welcome tag that includes the user's name
     - An animated link to [Join the Flickr Community](https://www.flickr.com/)
     - The flickr logo 
+
 - a "Explore Trending Tags" section upon login
 - a picture backdrop in the header section 
 
@@ -208,3 +212,6 @@ Analytics Graph
 - Enabled user to enter their name upon entry onto the website
 
 [![Alt text](https://i.ibb.co/2k3hyTb/Screen-Shot-2021-01-22-at-3-13-39-PM.png)](https://i.ibb.co/2k3hyTb/Screen-Shot-2021-01-22-at-3-13-39-PM.png)
+
+# Further TODOs
+- Code Refactor: Extract card component to generalized component 
