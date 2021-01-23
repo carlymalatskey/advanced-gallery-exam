@@ -33,7 +33,6 @@ export class GridProvider extends Component {
       totalItems: 0,
       page: 1,
       loading: false,
-      prevY: 0
     };
 
     window.onscroll = debounce(() => {
@@ -64,7 +63,6 @@ export class GridProvider extends Component {
       this.setItems([]);
       this.setState({
         page: 1, 
-        prevY: 0
       })
       this.getItems();
     }
