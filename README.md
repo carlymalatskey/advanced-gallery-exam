@@ -41,6 +41,7 @@ Here you'll find Carly's submission for the Wix Flickr Gallery exercise.
   [![Alt text](https://media0.giphy.com/media/0wqU19894rKNReNx1y/giphy.gif)](https://media0.giphy.com/media/0wqU19894rKNReNx1y/giphy.gif)
 
 ### Infinite Scrolling
+
   Implemented infinite scrolling by using the onscroll event that checks to see if the user has scrolled to the bottom of the page. Upon reaching the end, the event will load additional content. 
   
   Debounced the event to ensure that it's only called after a certain amount of time before running again. This enables enough time to load the images once it reaches the bottom of the window and improves user performance.
@@ -72,7 +73,7 @@ Here you'll find Carly's submission for the Wix Flickr Gallery exercise.
         (window.innerHeight + document.documentElement.scrollTop) - document.documentElement.offsetHeight) < 10
     ```
 
-  [![Alt text](https://media0.giphy.com/media/ffL6aUajJzU0hlezDc/giphy.gif)](https://media0.giphy.com/media/ffL6aUajJzU0hlezDc/giphy.gif)
+[![Infinite Scroll](https://media0.giphy.com/media/ffL6aUajJzU0hlezDc/giphy.gif)](https://media0.giphy.com/media/ffL6aUajJzU0hlezDc/giphy.gif)
 
 ### Drag-n-Drop
 Implemented react-dnd package to enable users to drag and drop images. 
@@ -111,14 +112,12 @@ Implemented react-dnd package to enable users to drag and drop images.
         item => item.id === destinationId
       );
 
+      const offset = destinationIndex - sourceIndex;
+
       if (sourceId === -1 || destinationId === -1) {
         return;
       }
     }
-  ```
-- This function also establishes an offset that will then be added to the index:
-  ```js
-  const offset = destinationIndex - sourceIndex;
   ```
 
 - Then, the function changes the state of the items by calling the moveItems function, passing in the current state of items, the index of the source image and the offset
@@ -147,27 +146,26 @@ Implemented react-dnd package to enable users to drag and drop images.
     }
     ```
 
-
-[![Alt text](https://media2.giphy.com/media/c9NPRMFRsxjTtZIhtl/giphy.gif)](https://media2.giphy.com/media/c9NPRMFRsxjTtZIhtl/giphy.gif)
+[![Drag n Drop](https://media2.giphy.com/media/c9NPRMFRsxjTtZIhtl/giphy.gif)](https://media2.giphy.com/media/c9NPRMFRsxjTtZIhtl/giphy.gif)
 
 
 ### Responsiveness
 
 The use of flexbox enables responsiveness.
 
-[![Alt text](https://media1.giphy.com/media/qSNs4OHIZw1TCJvlk6/giphy.gif)](https://media1.giphy.com/media/qSNs4OHIZw1TCJvlk6/giphy.gif)
+[![Responsiveness](https://media1.giphy.com/media/qSNs4OHIZw1TCJvlk6/giphy.gif)](https://media1.giphy.com/media/qSNs4OHIZw1TCJvlk6/giphy.gif)
 
 ### Frontend notifications
 
 Using react's toastr package, the user receives a notification upon deleting an image. 
 
-[![Alt text](https://media1.giphy.com/media/DFaPMR0lYpTzGc5Zoi/giphy.gif)](https://media1.giphy.com/media/DFaPMR0lYpTzGc5Zoi/giphy.gif)
+[![Frontend Notifications](https://media1.giphy.com/media/DFaPMR0lYpTzGc5Zoi/giphy.gif)](https://media1.giphy.com/media/DFaPMR0lYpTzGc5Zoi/giphy.gif)
 
 ### Trending Tags Section 
 Upon entering the flickr website, the user is able to see Trending Tags, including "Nature", "Sports", "Arts", "Beach".
 Clicking any of the tags directly loads the respective images.
 
-  [![Alt text](https://media1.giphy.com/media/9kFFwEFypcGwC0UZa5/giphy.gif)](https://media1.giphy.com/media/9kFFwEFypcGwC0UZa5/giphy.gif)
+  [![Trending Tags Section](https://media1.giphy.com/media/9kFFwEFypcGwC0UZa5/giphy.gif)](https://media1.giphy.com/media/9kFFwEFypcGwC0UZa5/giphy.gif)
 
 ### Website redesign
 The website now includes different features, including:  
@@ -188,7 +186,7 @@ The website now includes different features, including:
 - a "Explore Trending Tags" section upon login
 - a picture backdrop in the header section 
 
-[![Alt text](https://i.ibb.co/vmSTh8g/Screen-Shot-2021-01-22-at-1-22-20-PM.png)](https://i.ibb.co/vmSTh8g/Screen-Shot-2021-01-22-at-1-22-20-PM.png)
+[![Redesign](https://i.ibb.co/vmSTh8g/Screen-Shot-2021-01-22-at-1-22-20-PM.png)](https://i.ibb.co/vmSTh8g/Screen-Shot-2021-01-22-at-1-22-20-PM.png)
 
 ### User analytics
 Used SolarWinds Loggly to write logs on user behavior - including when a user changes a tag, deletes, rotates, expands an image, and when the user reaches the end of the page. The analytics also include the new tag and the respective image ID. 
