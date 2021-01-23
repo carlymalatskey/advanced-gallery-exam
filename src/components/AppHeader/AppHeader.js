@@ -37,9 +37,13 @@ class AppHeader extends React.Component {
     render() {
         return (
             <div className="app-header" style={{backgroundImage: `url(${BackgroundImage})`}}>
-                <div className="app-title">Your Flickr Inspiration</div>
-                <div style={{fontSize: "2.3vw", marginTop: "2vw"}}>Home to tens of billions of photos and 2 million groups.</div>
-                <Image className="logo-dots" src={LogoDots}></Image>
+                {this.state.inputTag.length === 0 &&
+                    <div>
+                        <div className="app-title">Your Flickr Inspiration</div>
+                        <div style={{fontSize: "2.3vw", marginTop: "2vw"}}>Home to tens of billions of photos and 2 million groups.</div>
+                        <Image className="logo-dots" src={LogoDots}></Image>
+                    </div>
+                }
                 <div>
                     <div className="app-sub-tag">Find your collection of photos. Enter a tag and your pictures will appear below!</div>
                     <input className="app-input" onChange={event => this.handleSearchTagChange(event)} value={this.state.inputTag} placeholder={"Enter keyword"}/>
