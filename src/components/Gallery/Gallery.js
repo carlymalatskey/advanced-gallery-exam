@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import Image from '../Image';
 import './Gallery.scss';
-import DragItem from "./../DragItem";
-import { Grid, GridItem } from "./../Grid";
-import GridContext from "./../GridContext";
+import DragItem from "./DragItem";
+import { Grid, GridItem } from "./Grid";
+import GridContext from "../App/GridContext";
 
 function Gallery() {
   const { items, moveItem, deleteItem, totalItems } = useContext(GridContext);

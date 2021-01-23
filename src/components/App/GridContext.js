@@ -1,6 +1,5 @@
 import React, { Component, createContext } from "react";
-import axios from 'axios';
-import api from './../api';
+import api from '../../api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import debounce from "lodash.debounce";
