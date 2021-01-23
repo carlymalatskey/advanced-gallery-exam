@@ -2,8 +2,11 @@ import React, { useContext } from "react";
 import Image from '../Image';
 import './Gallery.scss';
 import DragItem from "./DragItem";
-import { Grid, GridItem } from "./Grid";
 import GridContext from "../App/GridContext";
+
+const GridItem = ({ forwardedRef, ...props }) => (
+  <div ref={forwardedRef} {...props} className="grid-item" />
+);
 
 function Gallery() {
   const { items, moveItem, deleteItem, totalItems } = useContext(GridContext);
@@ -16,11 +19,11 @@ function Gallery() {
               : 
               <div></div>
             }
-            <Grid>
+            <div className="grid">
               {items.map((item, index) => {
                 return (
                   <DragItem key={item.id} id={item.id} onMoveItem={moveItem}>
-                    <GridItem>
+                    <GridItem >
                       <Image
                         key={index} 
                         dto={item} 
@@ -32,7 +35,7 @@ function Gallery() {
                 )
               })
             }
-            </Grid>
+            </div>
         </div>
     </div>
   );
