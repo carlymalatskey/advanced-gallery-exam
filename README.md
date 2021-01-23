@@ -72,7 +72,7 @@ Here you'll find Carly's submission for the Wix Flickr Gallery exercise.
         (window.innerHeight + document.documentElement.scrollTop) - document.documentElement.offsetHeight) < 10
     ```
 
-  [![Alt text](https://media0.giphy.com/media/hMpKiEDqtRFi9kY9jM/giphy.gif)](https://media0.giphy.com/media/hMpKiEDqtRFi9kY9jM/giphy.gif)
+[![Alt text](https://media0.giphy.com/media/hMpKiEDqtRFi9kY9jM/giphy.gif)]( https://media0.giphy.com/media/hMpKiEDqtRFi9kY9jM/giphy.gif)
 
 ### Drag-n-Drop
 Implemented react-dnd package to enable users to drag and drop images. 
@@ -146,7 +146,6 @@ Implemented react-dnd package to enable users to drag and drop images.
       return array;
     }
     ```
-
 
 
 [![Alt text](https://media2.giphy.com/media/c9NPRMFRsxjTtZIhtl/giphy.gif)](https://media2.giphy.com/media/c9NPRMFRsxjTtZIhtl/giphy.gif)
