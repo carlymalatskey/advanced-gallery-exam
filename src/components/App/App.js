@@ -3,7 +3,7 @@ import './App.scss';
 import Gallery from '../Gallery';
 import Cookies from "universal-cookie";
 import api from './../../api';
-import { Form, Button, Card, Image } from 'react-bootstrap';
+import { Card, Image } from 'react-bootstrap';
 import LogoDots from "./../../assets/flickrDots.svg";
 import sportsTag from "./../../assets/sportsTag.jpeg";
 import natureTag from "./../../assets/natureTag.jpg";
@@ -14,7 +14,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { GridProvider } from "./../GridContext";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import NavBar from "./../NavBar/NavBar"
+import NavBar from "./../NavBar/NavBar";
+import LoginForm from "./../LoginForm/LoginForm";
 
 const cookies = new Cookies();
 
@@ -28,8 +29,7 @@ class App extends React.Component {
     this.state = {
       tempTag: '',
       tag: '',
-      name: '',
-      inputName: ''
+      name: undefined
     };
   }
 
@@ -42,14 +42,8 @@ class App extends React.Component {
     }
   }
 
-  handleNameInputChange(e) {
-    this.setState({
-      inputName: e.target.value
-    })
-  }
-
-  async handleSubmitName() {
-    let nameRequest = await api.user.setName(this.state.inputName);
+  async handleSubmitName(inputName) {
+    let nameRequest = await api.user.setName(inputName);
     if (nameRequest.data.status == "success") {
         this.setState({
           name: cookies.get('name')
@@ -75,24 +69,28 @@ class App extends React.Component {
     });
   }
 
+  isLoggedIn = () => {
+    return (this.state.name !== undefined);
+  }
+
   render() {
     return (
       <div className="app-root" id="app-root">
-        {this.state.name ? 
+        <NavBar name={this.state.name}></NavBar>
+        {this.isLoggedIn() ? 
           <div>
-            <NavBar name={this.state.name} tag={this.state.tag}></NavBar>
             <div className="app-header" style={{backgroundImage: `url(${BackgroundImage})`}}>
-              <h2 className="app-title">Your Flickr Inspiration</h2>
-              <h4 style={{fontSize: "2.3vw", marginTop: "2vw"}}>Home to tens of billions of photos and 2 million groups.</h4>
+              <div className="app-title">Your Flickr Inspiration</div>
+              <div style={{fontSize: "2.3vw", marginTop: "2vw"}}>Home to tens of billions of photos and 2 million groups.</div>
               <Image className="logo-dots" src={LogoDots}></Image>
               <div>
-                <p className="app-sub-tag">Find your collection of photos. Enter a tag and your pictures will appear below!</p>
+                <div className="app-sub-tag">Find your collection of photos. Enter a tag and your pictures will appear below!</div>
                 <input className="app-input" onChange={event => this.handleSearchTagChange(event)} value={this.state.tempTag} placeholder={"Enter keyword"}/>
               </div>
             </div>
             {this.state.tag.length <= 0 ? 
               <div className="trending-section">
-                <h2>Explore Trending Tags</h2>
+                <div>Explore Trending Tags</div>
                 <div className="cards">
                   <Card className="card" onClick={() => this.setState({tempTag: "nature", tag: "nature"})} style={{backgroundImage: `url(${natureTag})`, backgroundSize: "29vw 19vw"}}>
                     <Card.Body>
@@ -128,22 +126,7 @@ class App extends React.Component {
             </DndProvider>
           </div>
           :
-          <div>
-            <NavBar></NavBar>
-            <div className="enter-name-form">
-              <Form>            
-                <Form.Label style={{fontSize: "2.8vw"}}>Enter your name to access your Flickr Gallery:</Form.Label>
-                <Form.Group>
-                  <Form.Control type="text" 
-                                placeholder="Enter name" 
-                                className="name-input" 
-                                onChange={(e) => this.handleNameInputChange(e)} 
-                                value={this.state.inputName}/>
-                </Form.Group>
-              </Form>
-              <Button type="submit" className="submit-button" onClick={() => this.handleSubmitName()}>Submit</Button>
-            </div>
-          </div>
+          <LoginForm handleSubmitName={(name) => this.handleSubmitName(name)}/>
         }
       </div>
     );
