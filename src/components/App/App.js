@@ -3,19 +3,18 @@ import './App.scss';
 import Gallery from '../Gallery';
 import Cookies from "universal-cookie";
 import api from './../../api';
-import { Card, Image } from 'react-bootstrap';
-import LogoDots from "./../../assets/flickrDots.svg";
+import { Card } from 'react-bootstrap';
 import sportsTag from "./../../assets/sportsTag.jpeg";
 import natureTag from "./../../assets/natureTag.jpg";
 import artsTag from "./../../assets/artsTag.jpeg";
 import beachTag from "./../../assets/beachTag.jpg";
-import BackgroundImage from "./../../assets/background.jpg";
 import 'react-toastify/dist/ReactToastify.css';
 import { GridProvider } from "./../GridContext";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import NavBar from "./../NavBar/NavBar";
 import LoginForm from "./../LoginForm/LoginForm";
+import AppHeader from '../AppHeader/AppHeader';
 
 const cookies = new Cookies();
 
@@ -27,7 +26,6 @@ class App extends React.Component {
     super();
     this.typingTimeout = 0;
     this.state = {
-      tempTag: '',
       tag: '',
       name: undefined
     };
@@ -53,19 +51,10 @@ class App extends React.Component {
     }
   }
 
-  handleSearchTagChange = (e) => {
-    let newTag = e.target.value;
-    if (this.typingTimeout) {
-      clearTimeout(this.typingTimeout);
-    }
-    this.typingTimeout = setTimeout(() => {
-      this.setState({
-        tag: newTag
-      }),
-      api.analytics.logAction('tag', 'User entered new tag', `Tag: ${this.state.tag}`)
-    }, 300);
+  handleTagChange = (tag) => {
+    api.analytics.logAction('tag', 'User entered new tag', `Tag: ${this.state.tag}`)
     this.setState({
-      tempTag: newTag
+      tag
     });
   }
 
@@ -79,15 +68,7 @@ class App extends React.Component {
         <NavBar name={this.state.name}></NavBar>
         {this.isLoggedIn() ? 
           <div>
-            <div className="app-header" style={{backgroundImage: `url(${BackgroundImage})`}}>
-              <div className="app-title">Your Flickr Inspiration</div>
-              <div style={{fontSize: "2.3vw", marginTop: "2vw"}}>Home to tens of billions of photos and 2 million groups.</div>
-              <Image className="logo-dots" src={LogoDots}></Image>
-              <div>
-                <div className="app-sub-tag">Find your collection of photos. Enter a tag and your pictures will appear below!</div>
-                <input className="app-input" onChange={event => this.handleSearchTagChange(event)} value={this.state.tempTag} placeholder={"Enter keyword"}/>
-              </div>
-            </div>
+            <AppHeader handleTagChange={(tag) => this.handleTagChange(tag)}/>
             {this.state.tag.length <= 0 ? 
               <div className="trending-section">
                 <div>Explore Trending Tags</div>

@@ -6,38 +6,8 @@ body, html {
 
 }
 
-.logo-dots {
-  margin-top: -2vw;
-  width: 8vw; 
-  height: 8vw; 
-}
 .app-root {
   text-align: center;
-}
-
-.app-header {
-  padding: 1.5vw;
-  color: white;
-  font-size: 4vw;
-}
-.app-title {
-  margin-bottom: 0.7vw; 
-  padding-top: 1.2vw;
-}
-.app-sub-tag {
-  font-size: 1.7vw;
-  margin: 0px; 
-}
-
-.app-input {
-  line-height: 4.5vw;
-  border: 1px solid #ccc;
-  border-radius: 0.6vw;
-  font-size: 2.2vw;
-  padding: 0 1vw;
-  color: #666;
-  width: 63vw;
-  margin-bottom: 2vw;
 }
 
 .card {
@@ -70,4 +40,5 @@ body, html {
 .cards {
   display: inline-flex; 
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
